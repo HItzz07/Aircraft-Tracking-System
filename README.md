@@ -23,7 +23,7 @@ python -m venv .venv
 .venv\Scripts\python.exe -m uvicorn api.main:app --port 8000   # 7. UI at http://localhost:8000
 ```
 
-`data/` (except the source notes) is git-ignored because it is 88 MB and step 1 regenerates it exactly. `artifacts/` and `results/` are committed, so the service and saved results work without retraining (the data is still needed for `/datasets` and evaluation). Everything is seeded (`SEED = 42`) and runs locally on CPU. Tested with Python 3.13, scikit-learn 1.9.1 and FastAPI 0.162. `scripts/diagnose.py` is a development aid that categorises wrong links on **val**.
+The generated `data/` package (88 MB), `artifacts/` and `results/` are all committed, so a fresh clone can run the service, evaluation and demo without regenerating or retraining. Step 1 is optional: it regenerates byte-identical data (seed 42). Everything is seeded (`SEED = 42`) and runs locally on CPU. Tested with Python 3.13, scikit-learn 1.9.1 and FastAPI 0.162. `scripts/diagnose.py` is a development aid that categorises wrong links on **val**.
 
 ## Layout
 

@@ -1,0 +1,14 @@
+{
+  "snapshot_1_cutoff": "2026-07-01T11:30:00Z",
+  "snapshot_2_cutoff": "2026-07-01T13:30:00Z",
+  "designed_delays": {
+    "whole_middle_tracklets": [
+      "trk-0b57de4011",
+      "trk-4daa5b59ad"
+    ],
+    "whole_final_tracklets": [
+      "trk-018b767f69"
+    ],
+    "tail_delayed_tracklet": "trk-aab05f6f4f"
+  }
+}

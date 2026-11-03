@@ -1,0 +1,16 @@
+{
+  "scenario_id": "scn-staged-000",
+  "snapshots": [
+    {
+      "snapshot_id": "stage_1",
+      "folder": "snapshot_1",
+      "received_cutoff": "2026-07-01T11:30:00Z"
+    },
+    {
+      "snapshot_id": "stage_2",
+      "folder": "snapshot_2",
+      "received_cutoff": "2026-07-01T13:30:00Z"
+    }
+  ],
+  "note": "Each snapshot is a complete input containing only records with received_at <= its cutoff."
+}
