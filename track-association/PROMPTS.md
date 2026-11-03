@@ -47,6 +47,30 @@ It keeps `artifacts/` and `results/`, because the brief requires saved models an
 
 ---
 
+## Prompt 4 — follow-up
+
+> Do one more thing, for thr graph view, make the graph view such that we can zoom in and out there
+
+## Prompt 5 — follow-up (sent while prompt 4 was being implemented)
+
+> Also if possible choose a better way of represenatation, maybe a bigger node then arrow edges so it will look more refined
+
+**How the output was used (prompts 4–5):** The AI changed the plot in `api/static/index.html`.
+
+- **Zoom and pan:**
+  - Scrolling zooms around the cursor (×1 to ×400), and dragging pans.
+  - +/−/Reset buttons and double-click-to-reset were added.
+  - Coordinates are rescaled instead of the SVG viewBox, so lines, nodes and labels keep their size, and the axis ticks show the visible lat/lon window.
+- **Refined representation:**
+  - New **Paths / Graph** toggle. Paths shows the real tracks with a start ring and a larger end node. Graph shows one node per tracklet, sized by √points.
+  - Accepted links are now curved arrow edges trimmed to the node rims. In compare mode the two methods bend in opposite directions.
+  - The selected tracklet's top candidates are dotted arrows labelled with their scores.
+  - Labels are decluttered until you zoom in.
+- **Verification:** the AI checked the result with a scripted headless-Chrome run and screenshots. That run found and fixed a bug where short links were not drawn.
+- **Docs:** the README moved by the user to `Gov/` was updated, and its relative links were fixed.
+
+---
+
 ## Prompts sent by the AI to sub-agents during this session
 
 ### Sub-agent 1 — Web UI (model: Claude Sonnet 5.5, general-purpose agent)

@@ -4,7 +4,7 @@ This project associates disconnected aircraft tracklets (A → B means "B is the
 
 > **Read this first — synthetic data assumption.** The challenge's data package (partitions, supporting streams, labels, staged snapshots) was **not** among the supplied files. `Required_files/` holds a different challenge's packet (identity-mapping ingestion), which has no tracklets or labels.
 >
-> As instructed, I proceeded on stated assumptions and wrote a seeded generator (`scripts/generate_data.py`) that produces an equivalent package. **Every number below is synthetic-on-synthetic.** See [PLAN.md](PLAN.md) §0 for the full assumption list (A1–A5).
+> As instructed, I proceeded on stated assumptions and wrote a seeded generator (`scripts/generate_data.py`) that produces an equivalent package. **Every number below is synthetic-on-synthetic.** See [PLAN.md](track-association/PLAN.md) §0 for the full assumption list (A1–A5).
 >
 > Two rules from `Required_files/Clarifications.docx` were reused where they apply: the UTC timestamp format and JSON identity for duplicates.
 
@@ -37,7 +37,7 @@ python -m venv .venv
 | `src/evaluate.py` | metrics exactly as defined in the brief |
 | `src/pipeline.py` | one entry point used by train, evaluate, demo and API; manifest and input hash |
 | `api/main.py`, `api/static/index.html` | FastAPI service and single-file UI |
-| `results/` | all saved evaluation outputs, [failure analysis](results/failure_analysis.md), API run logs |
+| `results/` | all saved evaluation outputs, [failure analysis](track-association/results/failure_analysis.md), API run logs |
 | `data/README_source_notes.md` | the (partial) source documentation of the data package |
 
 ## Data preparation
@@ -93,7 +93,7 @@ All evidence comes from `results/field_exploration.json`, computed on **train**.
 - On **val** (selection), adding `callsign_match`/`cat_match`/`ref_match` cut wrong links from 8 to 1 and raised recall from 0.957 to 0.974.
 - On **test**, removing `id_reports` raised learned wrong links from 11 to 18 and lowered recall from 0.953 to 0.935 (see S2 below).
 - 7 of the 16 baseline wrong links on test carry an explicit callsign mismatch.
-- They can also mislead. In the staged demo, a changed callsign made the learned model withhold a correct link (see [failure analysis](results/failure_analysis.md)).
+- They can also mislead. In the staged demo, a changed callsign made the learned model withhold a correct link (see [failure analysis](track-association/results/failure_analysis.md)).
 
 ## Approach
 
@@ -189,7 +189,7 @@ Both methods are robust to thinning and extra noise, because the 3-minute veloci
 
 ### Failure analysis
 
-See [results/failure_analysis.md](results/failure_analysis.md). It covers five cases: a parallel neighbour accepted by both methods; a learned-only wrong link through a 118° turn (a disagreement); a weak link for a tracklet that has no successor; a skip-check false alarm; and long-gap turns that both methods miss.
+See [results/failure_analysis.md](track-association/results/failure_analysis.md). It covers five cases: a parallel neighbour accepted by both methods; a learned-only wrong link through a 118° turn (a disagreement); a weak link for a tracklet that has no successor; a skip-check false alarm; and long-gap turns that both methods miss.
 
 ## Updating associations (staged demo)
 
@@ -254,14 +254,19 @@ The model and config are loaded from `artifacts/` at startup, so a restart is sa
 
 The UI is `http://localhost:8000`: a single static file with plain JS and SVG and no external dependencies. It lets a reviewer:
 - pick a val/test scenario or a staged snapshot and run it;
-- see a lat/lon plot with accepted links drawn dashed, glitches marked ✕, and the selected tracklet's candidates dotted;
+- see a lat/lon plot with two display modes:
+  - **Paths**: the real tracks, with a start ring and a larger end node per tracklet;
+  - **Graph**: one node per tracklet, sized by √points;
+
+  In both modes, accepted links are curved arrow edges and the selected tracklet's top candidates are dotted arrows labelled with their scores. Glitches are marked ✕;
+- **zoom and pan** the plot: scroll to zoom around the cursor, drag to pan, use the +/−/Reset buttons, or double-click to reset. Axis ticks follow the visible window, and labels are decluttered until you zoom in;
 - read a per-tracklet table with status, successor, top-3 candidates and reason, plus the label with ✓/✗ for supplied datasets;
 - use a **baseline / learned / compare** toggle, where compare highlights disagreements;
 - run **Compare stages**, which shows only changed rows, both manifests, and stage-1 links in grey over stage 2;
 - open a detail pane with summary measurements, the full candidate table and the original reports;
 - see health, loading, empty, success and error states. "Send invalid sample" demonstrates the error state.
 
-The UI was written by a Sonnet subagent against the API contract in PLAN.md §9, then reviewed by hand against real responses. **I verified the API calls it makes, but have not clicked through it in a browser in this session.**
+The UI was written by a Sonnet subagent against the API contract in PLAN.md §9, then reviewed by hand against real responses. It was later checked in headless Chrome with a scripted run: dataset run, wheel zoom, drag-pan, Paths/Graph toggle, selection, compare mode and stage comparison, with no script errors, all accepted links drawn, and screenshots reviewed.
 
 ## Demonstration checklist
 
@@ -315,7 +320,7 @@ Test was run **once**, after these changes and the freeze. Nothing was changed a
 - The learned operating point sits at the edge of the validation grid, and its scores are uncalibrated.
 - `q` is not used for noise-aware scoring, and the reported-speed fields are explored but unused. Both are possible next steps.
 - No incremental updates: each snapshot is recomputed in full, which the brief allows.
-- The UI was not exercised in a real browser during this session.
+- The UI was checked in headless Chrome only (scripted interactions and screenshots), not by hand. Pinch-zoom on touch screens is not implemented; drag-pan works.
 
 ## Time spent
 
@@ -323,4 +328,4 @@ Approximate active time: _to be filled in by the candidate_. The AI-assisted bui
 
 ## AI assistance
 
-Claude Code (Claude Opus 5.5) planned the work and wrote the code and docs. A Claude Sonnet 5.5 subagent wrote the first version of the UI. Every prompt is logged in [PROMPTS.md](PROMPTS.md).
+Claude Code (Claude Opus 5.5) planned the work and wrote the code and docs. A Claude Sonnet 5.5 subagent wrote the first version of the UI. Every prompt is logged in [PROMPTS.md](track-association/PROMPTS.md).

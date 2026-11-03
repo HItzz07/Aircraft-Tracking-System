@@ -36,7 +36,20 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
 svg{width:100%;height:auto;display:block;background:var(--bg);border:1px solid var(--bd);border-radius:6px}
 svg text{fill:var(--fg);font-size:11px}svg .ax{stroke:var(--bd)}svg .tk{fill:var(--muted);font-size:10px}
-g.trk{cursor:pointer}g.trk:hover polyline.line{stroke-width:3}
+g.trk{cursor:pointer}
+svg circle.node{stroke:var(--card);stroke-width:2;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35));transition:r .1s}
+svg circle.ring{fill:var(--card);stroke-width:2}
+g.trk:hover circle.node{stroke:var(--fg)}g.trk.sel circle.node{stroke:var(--fg);stroke-width:2.5}
+svg text.nlab{font-size:10.5px;font-weight:600;paint-order:stroke;stroke:var(--bg);stroke-width:3px;pointer-events:none}
+svg text.elab{font-size:10px;fill:var(--muted);paint-order:stroke;stroke:var(--bg);stroke-width:3px;pointer-events:none}
+.legend i.arr{position:relative;border-top-style:solid;width:26px}
+.legend i.arr::after{content:"";position:absolute;right:-2px;top:-5px;border-left:7px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.legend i.arr.dot{border-top-style:dotted}
+.legend b.lnode,.legend b.lring{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:middle;margin-right:4px;background:var(--acc)}
+.legend b.lring{background:transparent;border:2px solid var(--acc);width:9px;height:9px}
+.seg.small button{font-size:12px;padding:3px 9px}
+#plot{touch-action:none;cursor:grab;user-select:none}#plot.panning{cursor:grabbing}
+.zoomctl{margin-bottom:6px}.zoomctl button.small{min-width:28px;color:var(--fg)}
 .legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin-bottom:6px}
 .legend i{display:inline-block;width:22px;height:0;border-top:2px dashed;vertical-align:middle;margin-right:4px}
 .err{border-color:var(--err);background:var(--errbg);color:var(--err)}
@@ -77,7 +90,14 @@ dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:2px 12px;margin:0;f
       <div class="card" id="metricsCard" hidden><h2>Metrics</h2><div id="metrics" class="tw"></div></div>
     </div>
     <div class="grid">
-      <div class="card"><h2>Lat/lon plot</h2><div id="legend" class="legend"></div><div id="plot"></div></div>
+      <div class="card"><h2>Lat/lon plot</h2><div id="legend" class="legend"></div>
+        <div class="row zoomctl">
+          <span class="seg small" id="dispSeg"><button data-d="paths" class="on" title="Real tracks with start ring and end node">Paths</button><button data-d="graph" title="One node per tracklet, links as arrows">Graph</button></span>
+          <button id="zin" class="small" title="Zoom in">+</button><button id="zout" class="small" title="Zoom out">−</button><button id="zreset" class="small" title="Reset view">Reset view</button>
+          <span class="muted" style="font-size:12px">Scroll to zoom · drag to pan · double-click to reset</span>
+          <span id="zlevel" class="muted mono" style="font-size:12px;margin-left:auto"></span>
+        </div>
+        <div id="plot"></div></div>
       <div class="card"><h2>Selected tracklet</h2><div id="detail" class="muted">Click a tracklet in the plot or table.</div></div>
     </div>
     <div class="card"><h2>Results</h2><div id="results" class="tw"></div></div>
@@ -92,7 +112,10 @@ const fmt = v => v == null ? "—" : typeof v === "number" ? (Number.isInteger(v
 const fmtT = s => { const d = new Date(s); return isNaN(d) ? esc(s) : d.toISOString().slice(11, 19); };
 const hue = tid => { let h = 0; for (const c of String(tid)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return (h * 47) % 360; };
 const colour = tid => `hsl(${hue(tid)} 70% 48%)`;
-const S = { resp: null, stage: null, method: "learned", sel: null, busy: false, datasets: [] };
+const S = { resp: null, stage: null, method: "learned", sel: null, busy: false, datasets: [],
+  view: { x: 0, y: 0, z: 1 }, dragged: false, display: "paths" };   // view: top-left of the visible window in base plot units + zoom factor
+const PLOT_W = 800, PLOT_H = 520, Z_MIN = 1, Z_MAX = 400;
+const resetView = () => { S.view = { x: 0, y: 0, z: 1 }; };
 
 class ApiError extends Error { constructor(code, message, details, status) { super(message); this.code = code; this.details = details; this.status = status; } }
 async function api(url, body) {
@@ -151,12 +174,12 @@ async function guarded(text, fn) {
 const runDataset = () => guarded("Running…", async () => {
   const payload = await api("/datasets/" + $("ds").value);
   S.resp = await api("/tracklets/associate", payload);
-  S.stage = null; S.sel = null; render();
+  S.stage = null; S.sel = null; resetView(); render();
 });
 const compareStages = () => guarded("Running both stages…", async () => {
   const p1 = await api("/datasets/staged/stage_1"), p2 = await api("/datasets/staged/stage_2");
   const s1 = await api("/tracklets/associate", p1), s2 = await api("/tracklets/associate", p2);
-  S.stage = { s1, s2 }; S.resp = s2; S.sel = null; render();
+  S.stage = { s1, s2 }; S.resp = s2; S.sel = null; resetView(); render();
 });
 const sendBad = () => guarded("Sending…", async () => {
   S.resp = await api("/tracklets/associate", { snapshot_id: "bad", observations: [{ observation_id: "x" }] });
@@ -216,49 +239,111 @@ function renderPlot() {
     lg.push({ label: "stage 1 links (" + m + ")", color: "var(--grey)", links: linksOf(S.stage.s1, m).filter(l => T[l[0]] && T[l[1]]) });
     lg.push({ label: "stage 2 links (" + m + ")", color: mColour(m), links: linksOf(R, m) });
   } else lg.push(...methodsShown().map(m => ({ label: m + " accepted links", color: mColour(m), links: linksOf(R, m) })));
-  $("legend").innerHTML = lg.map(l => `<span><i style="border-color:${l.color}"></i>${esc(l.label)}</span>`).join("") +
-    `<span><i style="border-top-style:dotted;border-color:var(--fg)"></i>selected's candidates</span><span>✕ glitch</span>`;
+  $("legend").innerHTML = lg.map(l => `<span><i class="arr" style="border-color:${l.color};color:${l.color}"></i>${esc(l.label)}</span>`).join("") +
+    `<span><i class="arr dot" style="border-color:var(--fg);color:var(--fg)"></i>selected's top candidates (score)</span>` +
+    (S.display === "graph"
+      ? `<span><b class="lnode"></b>tracklet node (size ∝ √points)</span>`
+      : `<span><b class="lring"></b>start</span><span><b class="lnode"></b>end</span><span>✕ glitch</span>`);
   if (!pts.length) { $("plot").innerHTML = '<div class="muted">No points to plot.</div>'; return; }
-  const W = 800, H = 520, P = 44;
-  const lats = pts.map(p => p.lat), lons = pts.map(p => p.lon);
-  const minLat = Math.min(...lats), maxLat = Math.max(...lats), minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const W = PLOT_W, H = PLOT_H, P = 44, V = S.view;
+  let minLat = Infinity, maxLat = -Infinity, minLon = Infinity, maxLon = -Infinity;
+  for (const p of pts) { if (p.lat < minLat) minLat = p.lat; if (p.lat > maxLat) maxLat = p.lat; if (p.lon < minLon) minLon = p.lon; if (p.lon > maxLon) maxLon = p.lon; }
   const cosL = Math.cos(((minLat + maxLat) / 2) * Math.PI / 180);
   const dLat = Math.max(maxLat - minLat, 1e-4), dLon = Math.max((maxLon - minLon) * cosL, 1e-4);
   const k = Math.min((W - 2 * P) / dLon, (H - 2 * P) / dLat);
   const ox = (W - dLon * k) / 2, oy = (H - dLat * k) / 2;
-  const X = lon => ox + (lon - minLon) * cosL * k, Y = lat => H - oy - (lat - minLat) * k;
+  // base (unzoomed) coordinates, then the zoom/pan view transform; sizes of marks stay constant
+  const X0 = lon => ox + (lon - minLon) * cosL * k, Y0 = lat => H - oy - (lat - minLat) * k;
+  const X = lon => (X0(lon) - V.x) * V.z, Y = lat => (Y0(lat) - V.y) * V.z;
+  const lonAt = sx => minLon + ((sx / V.z + V.x) - ox) / (cosL * k);
+  const latAt = sy => minLat + (H - oy - (sy / V.z + V.y)) / k;
+  const dec = Math.min(6, 3 + Math.max(0, Math.floor(Math.log10(V.z))));
+  $("zlevel").textContent = `zoom ×${V.z < 10 ? V.z.toFixed(1) : Math.round(V.z)}`;
+  const graph = S.display === "graph";
   const first = t => T[t].points[0], last = t => T[t].points[T[t].points.length - 1];
+  const mid = t => T[t].points[Math.floor((T[t].points.length - 1) / 2)];
+  // node geometry: graph mode = one node per tracklet (size ~ sqrt(points)); paths mode = start ring + end node
+  const nodeR = t => graph ? Math.max(8, Math.min(16, 4 + Math.sqrt(T[t].n_points || T[t].points.length) * 1.1)) : 7;
+  const outPt = t => graph ? mid(t) : last(t), inPt = t => graph ? mid(t) : first(t);
+  const inR = t => graph ? nodeR(t) : 5;
+  const selC = S.sel ? colour(S.sel) : "var(--fg)";
+  const marker = (id, color) => `<marker id="${id}" viewBox="0 0 12 12" refX="11" refY="6" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse"><path d="M1 1.5L11 6L1 10.5L3.5 6z" style="fill:${color}"/></marker>`;
   let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Tracklet plot"><defs>` +
-    lg.map((l, i) => `<marker id="ah${i}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="${l.color}"/></marker>`).join("") + `</defs>`;
+    lg.map((l, i) => marker(`ah${i}`, l.color)).join("") + marker("ahc", selC) + `</defs>`;
   // axes + ticks
-  for (let i = 0; i <= 4; i++) {
-    const lon = minLon + (maxLon - minLon) * i / 4, lat = minLat + (maxLat - minLat) * i / 4;
-    s += `<line class="ax" x1="${X(lon)}" x2="${X(lon)}" y1="${P / 2}" y2="${H - P / 2}" stroke-dasharray="2 4"/>` +
-      `<text class="tk" x="${X(lon)}" y="${H - P / 2 + 12}" text-anchor="middle">${lon.toFixed(3)}</text>` +
-      `<line class="ax" y1="${Y(lat)}" y2="${Y(lat)}" x1="${P / 2}" x2="${W - P / 2}" stroke-dasharray="2 4"/>` +
-      `<text class="tk" x="${P / 2 - 3}" y="${Y(lat) + 3}" text-anchor="end">${lat.toFixed(3)}</text>`;
+  for (let i = 0; i <= 4; i++) {   // ticks follow the visible window, so they stay meaningful when zoomed
+    const sx = P + (W - 2 * P) * i / 4, sy = P + (H - 2 * P) * i / 4;
+    s += `<line class="ax" x1="${sx}" x2="${sx}" y1="${P / 2}" y2="${H - P / 2}" stroke-dasharray="2 4"/>` +
+      `<text class="tk" x="${sx}" y="${H - P / 2 + 12}" text-anchor="middle">${lonAt(sx).toFixed(dec)}</text>` +
+      `<line class="ax" y1="${sy}" y2="${sy}" x1="${P / 2}" x2="${W - P / 2}" stroke-dasharray="2 4"/>` +
+      `<text class="tk" x="${P / 2 - 3}" y="${sy + 3}" text-anchor="end">${latAt(sy).toFixed(dec)}</text>`;
   }
   s += `<text class="tk" x="${W / 2}" y="${H - 4}" text-anchor="middle">lon</text><text class="tk" x="8" y="12">lat</text>`;
-  const line = (a, b, color, dash, w, op, mk) =>
-    `<line x1="${X(a.lon)}" y1="${Y(a.lat)}" x2="${X(b.lon)}" y2="${Y(b.lat)}" stroke="${color}" stroke-width="${w}" stroke-dasharray="${dash}" opacity="${op}"${mk ? ` marker-end="url(#ah${mk})"` : ""}/>`;
-  lg.forEach((l, i) => l.links.forEach(([a, b]) => { s += line(last(a), first(b), l.color, "6 4", 1.8, 0.95, i); }));
-  if (S.sel && T[S.sel] && T[S.sel].points.length) {
-    const cs = new Set();
-    methodsShown().forEach(m => ((results(R, m)[S.sel] || {}).ranked_candidates || []).slice(0, 3).forEach(c => cs.add(c.candidate)));
-    cs.forEach(c => { if (T[c] && T[c].points.length) s += line(last(S.sel), first(c), colour(S.sel), "1 4", 1.5, 0.6); });
-  }
+  // curved arrow from node a to node b, trimmed so it starts/ends on the node rims; bend separates overlapping layers
+  const arrow = (a, ra, b, rb, color, o) => {
+    const x1 = X(a.lon), y1 = Y(a.lat), x2 = X(b.lon), y2 = Y(b.lat);
+    const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+    if (L < 0.5) return "";
+    // short links (ends nearly touching on screen) become a small arc beside the nodes so they stay visible
+    const short = L < ra + rb + 14;
+    const nx = -dy / L, ny = dx / L, bend = (short ? ra + rb + 14 : Math.min(60, L * 0.18)) * (o.bend || 1);
+    const cx = (x1 + x2) / 2 + nx * bend, cy = (y1 + y2) / 2 + ny * bend;
+    const trim = (px, py, qx, qy, r) => { const d = Math.hypot(qx - px, qy - py) || 1; return [px + (qx - px) * r / d, py + (qy - py) * r / d]; };
+    const [sx, sy] = trim(x1, y1, cx, cy, ra + 1), [ex, ey] = trim(x2, y2, cx, cy, rb + 2);
+    let h = `<path d="M${sx.toFixed(1)} ${sy.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}" fill="none" ` +
+      `style="stroke:${color};stroke-width:${o.w};stroke-dasharray:${o.dash || "none"};opacity:${o.op}" stroke-linecap="round" marker-end="url(#${o.mk})"/>`;
+    if (o.label != null) h += `<text class="elab" x="${(0.25 * sx + 0.5 * cx + 0.25 * ex).toFixed(1)}" y="${(0.25 * sy + 0.5 * cy + 0.25 * ey - 4).toFixed(1)}" text-anchor="middle">${esc(o.label)}</text>`;
+    return h;
+  };
+  const poly = p => p.map(q => X(q.lon).toFixed(1) + "," + Y(q.lat).toFixed(1)).join(" ");
+  // 1) faint path context (paths mode: the real tracks; graph mode: a ghost of them)
   for (const t of ids) {
     const p = T[t].points; if (!p.length) continue;
-    const c = colour(t), sel = t === S.sel;
-    const a = p[p.length - 1], b = p.length > 1 ? p[p.length - 2] : null;
-    const ang = b ? Math.atan2(Y(a.lat) - Y(b.lat), X(a.lon) - X(b.lon)) * 180 / Math.PI : 0;
-    s += `<g class="trk" data-tid="${esc(t)}" opacity="${S.sel && !sel ? 0.7 : 1}"><title>${esc(t)} · ${esc(T[t].source)} · ${p.length} pts</title>` +
-      `<polyline class="line" fill="none" stroke="${c}" stroke-width="${sel ? 4 : 2}" stroke-linejoin="round" points="${p.map(q => X(q.lon).toFixed(1) + "," + Y(q.lat).toFixed(1)).join(" ")}"/>` +
-      `<polyline fill="none" stroke="transparent" stroke-width="12" points="${p.map(q => X(q.lon).toFixed(1) + "," + Y(q.lat).toFixed(1)).join(" ")}"/>` +
-      `<circle cx="${X(p[0].lon)}" cy="${Y(p[0].lat)}" r="${sel ? 4 : 3}" fill="${c}"/>` +
-      `<polygon points="-5,-4 6,0 -5,4" fill="${c}" transform="translate(${X(a.lon)} ${Y(a.lat)}) rotate(${ang})"/>` +
-      `<text x="${X(a.lon) + 8}" y="${Y(a.lat) - 6}" style="font-weight:${sel ? 700 : 400}">${esc(t)}</text>`;
-    for (const q of p) if (q.glitch) { const x = X(q.lon), y = Y(q.lat); s += `<path d="M${x - 3} ${y - 3}L${x + 3} ${y + 3}M${x + 3} ${y - 3}L${x - 3} ${y + 3}" stroke="var(--err)" stroke-width="1.5"/>`; }
+    const sel = t === S.sel;
+    s += `<polyline fill="none" style="stroke:${colour(t)};opacity:${graph ? (sel ? 0.45 : 0.14) : (sel ? 0.95 : 0.55)}" stroke-width="${graph ? 2 : sel ? 3.2 : 1.8}" stroke-linejoin="round" stroke-linecap="round" points="${poly(p)}"/>`;
+  }
+  // 2) edges: accepted links per layer (curved, solid, arrowed); selected tracklet's top candidates (dotted, with score)
+  lg.forEach((l, i) => {
+    const bend = lg.length > 1 ? (i === 0 ? 1 : -1) : 1;
+    l.links.forEach(([a, b]) => { s += arrow(outPt(a), nodeR(a), inPt(b), inR(b), l.color, { w: 2.4, op: 0.95, mk: `ah${i}`, bend }); });
+  });
+  if (S.sel && T[S.sel] && T[S.sel].points.length) {
+    const cs = new Map();
+    methodsShown().forEach(m => ((results(R, m)[S.sel] || {}).ranked_candidates || []).slice(0, 3).forEach(c => { if (!cs.has(c.candidate)) cs.set(c.candidate, c.score); }));
+    cs.forEach((score, c) => { if (T[c] && T[c].points.length) s += arrow(outPt(S.sel), nodeR(S.sel), inPt(c), inR(c), selC, { w: 1.6, op: 0.75, dash: "2 5", mk: "ahc", bend: 0.5, label: fmt(score) }); });
+  }
+  // 3) nodes on top, so edges visibly connect them
+  const shortId = t => esc(String(t).replace(/^trk-/, "").slice(0, 6));
+  // label decluttering: all labels once zoomed in; otherwise only the selected tracklet and its neighbourhood
+  const related = new Set();
+  if (S.sel) {
+    related.add(S.sel);
+    methodsShown().forEach(m => {
+      const r = results(R, m)[S.sel] || {};
+      if (r.successor) related.add(r.successor);
+      if (r.predecessor) related.add(r.predecessor);
+      (r.ranked_candidates || []).slice(0, 3).forEach(c => related.add(c.candidate));
+    });
+  }
+  const allLabels = V.z >= 1.8 || ids.length <= 20;
+  const showLabel = t => allLabels || related.has(t);
+  $("zlevel").textContent += allLabels ? "" : " · zoom in for all labels";
+  for (const t of ids) {
+    const p = T[t].points; if (!p.length) continue;
+    const c = colour(t), sel = t === S.sel, r = nodeR(t);
+    s += `<g class="trk${sel ? " sel" : ""}" data-tid="${esc(t)}"><title>${esc(t)} · ${esc(T[t].source)} · ${p.length} pts</title>`;
+    if (!graph) s += `<polyline fill="none" stroke="transparent" stroke-width="12" points="${poly(p)}"/>`;   // wide hit area
+    if (graph) {
+      const q = mid(t);
+      s += `<circle class="node" cx="${X(q.lon)}" cy="${Y(q.lat)}" r="${r + (sel ? 2 : 0)}" style="fill:${c}"/>` +
+        (showLabel(t) ? `<text class="nlab" x="${X(q.lon)}" y="${Y(q.lat) + r + 13}" text-anchor="middle">${shortId(t)}</text>` : "");
+    } else {
+      const a = first(t), b = last(t);
+      s += `<circle class="ring" cx="${X(a.lon)}" cy="${Y(a.lat)}" r="5" style="stroke:${c}"/>` +
+        `<circle class="node" cx="${X(b.lon)}" cy="${Y(b.lat)}" r="${r + (sel ? 2 : 0)}" style="fill:${c}"/>` +
+        (showLabel(t) ? `<text class="nlab" x="${X(b.lon) + r + 4}" y="${Y(b.lat) - r + 2}">${shortId(t)}</text>` : "");
+      for (const q of p) if (q.glitch) { const x = X(q.lon), y = Y(q.lat); s += `<path d="M${x - 3} ${y - 3}L${x + 3} ${y + 3}M${x + 3} ${y - 3}L${x - 3} ${y + 3}" style="stroke:var(--err)" stroke-width="1.5"/>`; }
+    }
     s += `</g>`;
   }
   $("plot").innerHTML = s + "</svg>";
@@ -334,8 +419,72 @@ function select(tid) {
   S.sel = tid; renderPlot(); renderResults(); renderDetail();
 }
 document.addEventListener("click", e => {
+  if (S.dragged) { S.dragged = false; return; }   // the click that ends a pan must not select a tracklet
   const el = e.target.closest("[data-tid]"); if (el) select(el.dataset.tid);
 });
+
+/* ---------- plot zoom & pan ---------- */
+let rafPending = false;
+const redrawPlot = () => {
+  if (rafPending || !S.resp) return;
+  rafPending = true;
+  requestAnimationFrame(() => { rafPending = false; renderPlot(); });
+};
+function clampView(v) {
+  v.z = Math.min(Z_MAX, Math.max(Z_MIN, v.z));
+  const w = PLOT_W / v.z, h = PLOT_H / v.z;   // visible window in base units; keep at least half of the plot in view
+  v.x = Math.min(PLOT_W - w / 2, Math.max(-w / 2, v.x));
+  v.y = Math.min(PLOT_H - h / 2, Math.max(-h / 2, v.y));
+  if (v.z === 1) { v.x = 0; v.y = 0; }
+  return v;
+}
+function zoomAt(sx, sy, factor) {   // keep the base point under (sx, sy) fixed on screen
+  const V = S.view, bx = sx / V.z + V.x, by = sy / V.z + V.y;
+  const z = Math.min(Z_MAX, Math.max(Z_MIN, V.z * factor));
+  S.view = clampView({ x: bx - sx / z, y: by - sy / z, z });
+  redrawPlot();
+}
+function svgPoint(e) {   // client px -> svg user units (the svg scales with the card width)
+  const svg = $("plot").querySelector("svg"); if (!svg) return null;
+  const r = svg.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * PLOT_W / r.width, y: (e.clientY - r.top) * PLOT_H / r.height, sc: PLOT_W / r.width };
+}
+const plotEl = $("plot");
+plotEl.addEventListener("wheel", e => {
+  const p = svgPoint(e); if (!p) return;
+  e.preventDefault();
+  zoomAt(p.x, p.y, Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0015)));
+}, { passive: false });
+let drag = null;
+plotEl.addEventListener("pointerdown", e => {
+  if (e.button !== 0) return;
+  const p = svgPoint(e); if (!p) return;
+  drag = { x: e.clientX, y: e.clientY, vx: S.view.x, vy: S.view.y, sc: p.sc, moved: false, id: e.pointerId };
+});
+plotEl.addEventListener("pointermove", e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.moved && Math.hypot(dx, dy) < 4) return;   // small jitter is still a click
+  if (!drag.moved) { drag.moved = true; plotEl.setPointerCapture(e.pointerId); plotEl.classList.add("panning"); }
+  S.view = clampView({ x: drag.vx - dx * drag.sc / S.view.z, y: drag.vy - dy * drag.sc / S.view.z, z: S.view.z });
+  redrawPlot();
+});
+const endDrag = e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  S.dragged = drag.moved; drag = null; plotEl.classList.remove("panning");
+};
+plotEl.addEventListener("pointerup", endDrag);
+plotEl.addEventListener("pointercancel", endDrag);
+plotEl.addEventListener("dblclick", e => { e.preventDefault(); resetView(); redrawPlot(); });
+$("dispSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  S.display = b.dataset.d;
+  document.querySelectorAll("#dispSeg button").forEach(x => x.classList.toggle("on", x === b));
+  if (S.resp) renderPlot();
+});
+$("zin").onclick = () => zoomAt(PLOT_W / 2, PLOT_H / 2, 1.5);
+$("zout").onclick = () => zoomAt(PLOT_W / 2, PLOT_H / 2, 1 / 1.5);
+$("zreset").onclick = () => { resetView(); redrawPlot(); };
 $("seg").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   S.method = b.dataset.m; if (S.resp) render(); else document.querySelectorAll("#seg button").forEach(x => x.classList.toggle("on", x === b));
