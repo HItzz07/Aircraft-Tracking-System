@@ -1,0 +1,136 @@
+[
+  {
+    "name": "same report ID, identical bodies",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/observations",
+        "body": {
+          "observation_id": "race-same",
+          "reported_identifier": "RACE01",
+          "observed_at": "2026-01-01T00:00:00Z",
+          "latitude": 37.7749,
+          "longitude": -122.4194
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/observations",
+        "body": {
+          "observation_id": "race-same",
+          "reported_identifier": "RACE01",
+          "observed_at": "2026-01-01T00:00:00Z",
+          "latitude": 37.7749,
+          "longitude": -122.4194
+        }
+      }
+    ],
+    "expected_status_multiset": [
+      200,
+      201
+    ],
+    "assertion": "Exactly one original stored."
+  },
+  {
+    "name": "same report ID, different bodies",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/observations",
+        "body": {
+          "observation_id": "race-conflict",
+          "reported_identifier": "RACE02",
+          "observed_at": "2026-01-01T00:00:00Z",
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "metadata": {
+            "variant": "a"
+          }
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/observations",
+        "body": {
+          "observation_id": "race-conflict",
+          "reported_identifier": "RACE02",
+          "observed_at": "2026-01-01T00:00:00Z",
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "metadata": {
+            "variant": "b"
+          }
+        }
+      }
+    ],
+    "expected_status_multiset": [
+      201,
+      409
+    ],
+    "assertion": "Either winner is valid; stored original must match that winner."
+  },
+  {
+    "name": "different mapping IDs, overlapping intervals",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/identity-mappings",
+        "body": {
+          "mapping_id": "race-map-a",
+          "reported_identifier": "RACE03",
+          "aircraft_id": "race-aircraft-a",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": "2026-02-01T00:00:00Z"
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/identity-mappings",
+        "body": {
+          "mapping_id": "race-map-b",
+          "reported_identifier": "RACE03",
+          "aircraft_id": "race-aircraft-b",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": "2026-02-01T00:00:00Z"
+        }
+      }
+    ],
+    "expected_status_multiset": [
+      201,
+      409
+    ],
+    "assertion": "Only one mapping accepted; subsequent history associates exclusively with winner."
+  },
+  {
+    "name": "same mapping ID, identical bodies",
+    "requests": [
+      {
+        "method": "POST",
+        "path": "/identity-mappings",
+        "body": {
+          "mapping_id": "race-map-same",
+          "reported_identifier": "RACE04",
+          "aircraft_id": "race-aircraft",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": "2026-02-01T00:00:00Z"
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/identity-mappings",
+        "body": {
+          "mapping_id": "race-map-same",
+          "reported_identifier": "RACE04",
+          "aircraft_id": "race-aircraft",
+          "valid_from": "2026-01-01T00:00:00Z",
+          "valid_to": "2026-02-01T00:00:00Z"
+        }
+      }
+    ],
+    "expected_status_multiset": [
+      200,
+      201
+    ],
+    "assertion": "Exactly one mapping stored."
+  }
+]

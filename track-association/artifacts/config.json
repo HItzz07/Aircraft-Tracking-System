@@ -1,0 +1,49 @@
+{
+  "model_version": "v1.0.0",
+  "seed": 42,
+  "model": "sklearn HistGradientBoostingClassifier(max_iter=300, learning_rate=0.05, max_leaf_nodes=15, l2_regularization=1.0)",
+  "feature_set": "physics+supporting",
+  "features": [
+    "gap_min",
+    "dist_km",
+    "implied_speed_kmh",
+    "fwd_err_km",
+    "back_err_km",
+    "speed_diff_kmh",
+    "heading_change_deg",
+    "bearing_align_deg",
+    "speed_ratio",
+    "alt_diff_ft",
+    "callsign_match",
+    "cat_match",
+    "ref_match"
+  ],
+  "candidates": {
+    "max_gap_min": 60.0,
+    "max_implied_speed_kmh": 1110.0,
+    "max_err_km_per_min": 11.657,
+    "err_offset_min": 2.0
+  },
+  "candidate_settings_derivation": {
+    "n_train_true_links": 2596,
+    "gap_p99.9": 59.31,
+    "implied_speed_p99.9": 1007.4,
+    "err_ratio_p99.5": 10.5972
+  },
+  "baseline": {
+    "variant": "per_minute",
+    "threshold": -3.0,
+    "margin": 0.1,
+    "skip_check": true,
+    "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+  },
+  "learned": {
+    "threshold": 0.02,
+    "margin": 0.0,
+    "skip_check": true,
+    "score": "classifier output in [0,1], higher is better, not calibrated"
+  },
+  "selection_rule": "validation: maximise correct - 5*incorrect subject to precision >= 0.98; ties -> higher threshold, higher margin",
+  "trained_on": "data/train",
+  "selected_on": "data/val"
+}

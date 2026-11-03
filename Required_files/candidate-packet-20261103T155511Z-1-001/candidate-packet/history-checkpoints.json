@@ -1,0 +1,968 @@
+[
+  {
+    "step_id": "step-011",
+    "expected_rows": []
+  },
+  {
+    "step_id": "step-012",
+    "expected_rows": []
+  },
+  {
+    "step_id": "step-019",
+    "expected_rows": [
+      {
+        "observation_id": "obs-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-a",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-b",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-other-id",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-15T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-last-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-31T23:59:59Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-020",
+    "expected_rows": [
+      {
+        "observation_id": "obs-boundary",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-01T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-feb",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-03T10:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-021",
+    "expected_rows": []
+  },
+  {
+    "step_id": "step-185",
+    "expected_rows": [
+      {
+        "observation_id": "obs-bulk-000",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-01T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-001",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-01T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-004",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-02T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-005",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-02T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-008",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-04T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-009",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-04T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-012",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-05T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-013",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-05T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-016",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-07T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-017",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-07T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-020",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-08T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-021",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-08T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-024",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-025",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-10T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-same-position-new-id",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-a",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-b",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-jump",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:01Z"
+      },
+      {
+        "observation_id": "obs-bulk-028",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-11T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-029",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-11T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-032",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-13T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-033",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-13T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-036",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-14T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-037",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-14T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-other-id",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-15T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-040",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-16T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-041",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-16T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-044",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-17T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-045",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-17T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-048",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-19T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-049",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-19T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-052",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-20T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-053",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-20T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-056",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-22T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-057",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-22T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-060",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-23T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-061",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-23T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-064",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-25T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-065",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-25T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-068",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-26T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-069",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-26T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-072",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-28T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-073",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-28T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-076",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-29T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-077",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-29T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-080",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-31T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-081",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-31T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-last-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-31T23:59:59Z"
+      },
+      {
+        "observation_id": "obs-bulk-085",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-01T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-089",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-03T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-093",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-04T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-097",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-06T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-101",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-07T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-105",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-09T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-109",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-10T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-113",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-12T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-117",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-13T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-186",
+    "expected_rows": [
+      {
+        "observation_id": "obs-boundary",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-01T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-084",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-01T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-088",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-03T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-feb",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-03T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-092",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-04T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-096",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-06T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-100",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-07T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-104",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-09T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-108",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-10T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-112",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-12T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-116",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-13T12:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-187",
+    "expected_rows": [
+      {
+        "observation_id": "obs-bulk-002",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-01T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-006",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-03T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-010",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-04T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-014",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-06T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-018",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-07T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-022",
+        "mapping_id": "map-gap-left",
+        "observed_at": "2026-01-09T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-gap-start",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-20T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-054",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-21T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-058",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-22T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-062",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-24T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-066",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-25T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-070",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-27T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-074",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-28T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-078",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-30T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-082",
+        "mapping_id": "map-gap-right",
+        "observed_at": "2026-01-31T18:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-188",
+    "expected_rows": [
+      {
+        "observation_id": "obs-bulk-086",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-02T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-090",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-03T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-094",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-05T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-098",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-06T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-102",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-08T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-106",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-09T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-110",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-11T06:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-114",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-12T18:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-118",
+        "mapping_id": "map-gap-adjacent",
+        "observed_at": "2026-02-14T06:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-189",
+    "expected_rows": []
+  },
+  {
+    "step_id": "step-190",
+    "expected_rows": [
+      {
+        "observation_id": "obs-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-same-position-new-id",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-a",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-b",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-jump",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:01Z"
+      },
+      {
+        "observation_id": "obs-bulk-028",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-11T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-029",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-11T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-032",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-13T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-033",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-13T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-036",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-14T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-037",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-14T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-191",
+    "expected_rows": [
+      {
+        "observation_id": "obs-boundary",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-01T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-084",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-01T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-088",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-03T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-feb",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-03T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-092",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-04T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-096",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-06T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-100",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-07T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-104",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-09T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-108",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-10T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-112",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-12T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-116",
+        "mapping_id": "map-feb",
+        "observed_at": "2026-02-13T12:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-192",
+    "expected_rows": [
+      {
+        "observation_id": "obs-bulk-085",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-01T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-089",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-03T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-093",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-04T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-097",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-06T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-101",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-07T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-105",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-09T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-109",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-10T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-113",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-12T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-117",
+        "mapping_id": "map-other",
+        "observed_at": "2026-02-13T21:00:00Z"
+      }
+    ]
+  },
+  {
+    "step_id": "step-193",
+    "expected_rows": [
+      {
+        "observation_id": "obs-bulk-000",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-01T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-001",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-01T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-004",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-02T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-005",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-02T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-008",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-04T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-009",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-04T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-012",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-05T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-013",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-05T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-016",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-07T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-017",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-07T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-020",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-08T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-021",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-08T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-024",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-025",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-10T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-same-position-new-id",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-a",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-tie-b",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:00Z"
+      },
+      {
+        "observation_id": "obs-jump",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-10T10:00:01Z"
+      },
+      {
+        "observation_id": "obs-bulk-028",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-11T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-029",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-11T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-032",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-13T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-033",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-13T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-036",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-14T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-037",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-14T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-other-id",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-15T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-040",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-16T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-041",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-16T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-044",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-17T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-045",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-17T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-048",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-19T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-049",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-19T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-052",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-20T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-053",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-20T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-056",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-22T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-057",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-22T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-060",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-23T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-061",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-23T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-064",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-25T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-065",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-25T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-068",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-26T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-069",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-26T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-072",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-28T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-073",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-28T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-076",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-29T12:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-077",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-29T21:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-080",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-31T00:00:00Z"
+      },
+      {
+        "observation_id": "obs-bulk-081",
+        "mapping_id": "map-other",
+        "observed_at": "2026-01-31T09:00:00Z"
+      },
+      {
+        "observation_id": "obs-last-jan",
+        "mapping_id": "map-jan",
+        "observed_at": "2026-01-31T23:59:59Z"
+      }
+    ]
+  }
+]

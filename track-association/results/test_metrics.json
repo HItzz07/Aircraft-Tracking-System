@@ -1,0 +1,518 @@
+{
+  "note": "Test evaluated once at the frozen operating settings from artifacts/config.json. Threshold comparison below is from VALIDATION (used for selection), per the brief.",
+  "frozen_config": {
+    "model_version": "v1.0.0",
+    "feature_set": "physics+supporting",
+    "candidates": {
+      "max_gap_min": 60.0,
+      "max_implied_speed_kmh": 1110.0,
+      "max_err_km_per_min": 11.657,
+      "err_offset_min": 2.0
+    },
+    "baseline": {
+      "variant": "per_minute",
+      "threshold": -3.0,
+      "margin": 0.1,
+      "skip_check": true,
+      "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+    },
+    "learned": {
+      "threshold": 0.02,
+      "margin": 0.0,
+      "skip_check": true,
+      "score": "classifier output in [0,1], higher is better, not calibrated"
+    }
+  },
+  "test": {
+    "dataset": "test",
+    "manifest": {
+      "snapshot_id": "test",
+      "input_hash": "3891d35f4cdc8afb",
+      "model_version": "v1.0.0",
+      "config_hash": "711c7531b7228f07",
+      "decision_config": {
+        "candidates": {
+          "max_gap_min": 60.0,
+          "max_implied_speed_kmh": 1110.0,
+          "max_err_km_per_min": 11.657,
+          "err_offset_min": 2.0
+        },
+        "baseline": {
+          "variant": "per_minute",
+          "threshold": -3.0,
+          "margin": 0.1,
+          "skip_check": true,
+          "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+        },
+        "learned": {
+          "threshold": 0.02,
+          "margin": 0.0,
+          "skip_check": true,
+          "score": "classifier output in [0,1], higher is better, not calibrated"
+        },
+        "features": [
+          "gap_min",
+          "dist_km",
+          "implied_speed_kmh",
+          "fwd_err_km",
+          "back_err_km",
+          "speed_diff_kmh",
+          "heading_change_deg",
+          "bearing_align_deg",
+          "speed_ratio",
+          "alt_diff_ft",
+          "callsign_match",
+          "cat_match",
+          "ref_match"
+        ]
+      },
+      "generated_at": "2026-11-03T16:51:08.548645Z",
+      "n_observations_in": 45427,
+      "n_observations_unique": 44759,
+      "n_duplicates_removed": 668,
+      "n_tracklets": 1057,
+      "tracklet_context_unmatched": 0,
+      "id_reports_unmatched": 0,
+      "n_tracklet_context": 982,
+      "n_id_reports": 18713,
+      "n_scenarios": 20,
+      "n_candidate_pairs": 7635
+    },
+    "baseline": {
+      "tracklets": 1057,
+      "labeled_links": 867,
+      "accepted_links": 601,
+      "correct_links": 585,
+      "incorrect_links": 16,
+      "incorrect_on_no_successor_tracklets": 4,
+      "precision": 0.9733777038269551,
+      "recall": 0.6747404844290658,
+      "unresolved_with_labeled_successor": 270,
+      "unresolved_proportion": 0.31141868512110726,
+      "candidate_links_kept": 858,
+      "candidate_recall": 0.9896193771626297,
+      "n_candidate_pairs": 7635
+    },
+    "learned": {
+      "tracklets": 1057,
+      "labeled_links": 867,
+      "accepted_links": 837,
+      "correct_links": 826,
+      "incorrect_links": 11,
+      "incorrect_on_no_successor_tracklets": 3,
+      "precision": 0.986857825567503,
+      "recall": 0.9527104959630911,
+      "unresolved_with_labeled_successor": 33,
+      "unresolved_proportion": 0.03806228373702422,
+      "candidate_links_kept": 858,
+      "candidate_recall": 0.9896193771626297,
+      "n_candidate_pairs": 7635
+    }
+  },
+  "stress_tests": {
+    "S1_thinned_every_3rd": {
+      "dataset": "test_thinned",
+      "manifest": {
+        "snapshot_id": "test_thinned",
+        "input_hash": "14c97f61e1b07e45",
+        "model_version": "v1.0.0",
+        "config_hash": "711c7531b7228f07",
+        "decision_config": {
+          "candidates": {
+            "max_gap_min": 60.0,
+            "max_implied_speed_kmh": 1110.0,
+            "max_err_km_per_min": 11.657,
+            "err_offset_min": 2.0
+          },
+          "baseline": {
+            "variant": "per_minute",
+            "threshold": -3.0,
+            "margin": 0.1,
+            "skip_check": true,
+            "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+          },
+          "learned": {
+            "threshold": 0.02,
+            "margin": 0.0,
+            "skip_check": true,
+            "score": "classifier output in [0,1], higher is better, not calibrated"
+          },
+          "features": [
+            "gap_min",
+            "dist_km",
+            "implied_speed_kmh",
+            "fwd_err_km",
+            "back_err_km",
+            "speed_diff_kmh",
+            "heading_change_deg",
+            "bearing_align_deg",
+            "speed_ratio",
+            "alt_diff_ft",
+            "callsign_match",
+            "cat_match",
+            "ref_match"
+          ]
+        },
+        "generated_at": "2026-11-03T16:51:10.859061Z",
+        "n_observations_in": 15985,
+        "n_observations_unique": 15985,
+        "n_duplicates_removed": 0,
+        "n_tracklets": 1057,
+        "tracklet_context_unmatched": 0,
+        "id_reports_unmatched": 0,
+        "n_tracklet_context": 982,
+        "n_id_reports": 6667,
+        "n_scenarios": 20,
+        "n_candidate_pairs": 7641
+      },
+      "baseline": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 603,
+        "correct_links": 586,
+        "incorrect_links": 17,
+        "incorrect_on_no_successor_tracklets": 4,
+        "precision": 0.9718076285240465,
+        "recall": 0.6758938869665513,
+        "unresolved_with_labeled_successor": 268,
+        "unresolved_proportion": 0.3091118800461361,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7641
+      },
+      "learned": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 838,
+        "correct_links": 824,
+        "incorrect_links": 14,
+        "incorrect_on_no_successor_tracklets": 5,
+        "precision": 0.9832935560859188,
+        "recall": 0.9504036908881199,
+        "unresolved_with_labeled_successor": 34,
+        "unresolved_proportion": 0.0392156862745098,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7641
+      }
+    },
+    "S2_no_id_reports": {
+      "dataset": "test_no_id_reports",
+      "manifest": {
+        "snapshot_id": "test_no_id_reports",
+        "input_hash": "da680cf802234f9b",
+        "model_version": "v1.0.0",
+        "config_hash": "711c7531b7228f07",
+        "decision_config": {
+          "candidates": {
+            "max_gap_min": 60.0,
+            "max_implied_speed_kmh": 1110.0,
+            "max_err_km_per_min": 11.657,
+            "err_offset_min": 2.0
+          },
+          "baseline": {
+            "variant": "per_minute",
+            "threshold": -3.0,
+            "margin": 0.1,
+            "skip_check": true,
+            "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+          },
+          "learned": {
+            "threshold": 0.02,
+            "margin": 0.0,
+            "skip_check": true,
+            "score": "classifier output in [0,1], higher is better, not calibrated"
+          },
+          "features": [
+            "gap_min",
+            "dist_km",
+            "implied_speed_kmh",
+            "fwd_err_km",
+            "back_err_km",
+            "speed_diff_kmh",
+            "heading_change_deg",
+            "bearing_align_deg",
+            "speed_ratio",
+            "alt_diff_ft",
+            "callsign_match",
+            "cat_match",
+            "ref_match"
+          ]
+        },
+        "generated_at": "2026-11-03T16:51:14.656002Z",
+        "n_observations_in": 45427,
+        "n_observations_unique": 44759,
+        "n_duplicates_removed": 668,
+        "n_tracklets": 1057,
+        "tracklet_context_unmatched": 0,
+        "id_reports_unmatched": 0,
+        "n_tracklet_context": 982,
+        "n_id_reports": 0,
+        "n_scenarios": 20,
+        "n_candidate_pairs": 7635
+      },
+      "baseline": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 601,
+        "correct_links": 585,
+        "incorrect_links": 16,
+        "incorrect_on_no_successor_tracklets": 4,
+        "precision": 0.9733777038269551,
+        "recall": 0.6747404844290658,
+        "unresolved_with_labeled_successor": 270,
+        "unresolved_proportion": 0.31141868512110726,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7635
+      },
+      "learned": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 829,
+        "correct_links": 811,
+        "incorrect_links": 18,
+        "incorrect_on_no_successor_tracklets": 5,
+        "precision": 0.9782870928829915,
+        "recall": 0.9354094579008074,
+        "unresolved_with_labeled_successor": 43,
+        "unresolved_proportion": 0.049596309111880045,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7635
+      }
+    },
+    "S2b_no_supporting_streams": {
+      "dataset": "test_no_supporting",
+      "manifest": {
+        "snapshot_id": "test_no_supporting",
+        "input_hash": "23a8b1c515b72d2d",
+        "model_version": "v1.0.0",
+        "config_hash": "711c7531b7228f07",
+        "decision_config": {
+          "candidates": {
+            "max_gap_min": 60.0,
+            "max_implied_speed_kmh": 1110.0,
+            "max_err_km_per_min": 11.657,
+            "err_offset_min": 2.0
+          },
+          "baseline": {
+            "variant": "per_minute",
+            "threshold": -3.0,
+            "margin": 0.1,
+            "skip_check": true,
+            "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+          },
+          "learned": {
+            "threshold": 0.02,
+            "margin": 0.0,
+            "skip_check": true,
+            "score": "classifier output in [0,1], higher is better, not calibrated"
+          },
+          "features": [
+            "gap_min",
+            "dist_km",
+            "implied_speed_kmh",
+            "fwd_err_km",
+            "back_err_km",
+            "speed_diff_kmh",
+            "heading_change_deg",
+            "bearing_align_deg",
+            "speed_ratio",
+            "alt_diff_ft",
+            "callsign_match",
+            "cat_match",
+            "ref_match"
+          ]
+        },
+        "generated_at": "2026-11-03T16:51:17.901652Z",
+        "n_observations_in": 45427,
+        "n_observations_unique": 44759,
+        "n_duplicates_removed": 668,
+        "n_tracklets": 1057,
+        "tracklet_context_unmatched": 0,
+        "id_reports_unmatched": 0,
+        "n_tracklet_context": 0,
+        "n_id_reports": 0,
+        "n_scenarios": 20,
+        "n_candidate_pairs": 7635
+      },
+      "baseline": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 601,
+        "correct_links": 585,
+        "incorrect_links": 16,
+        "incorrect_on_no_successor_tracklets": 4,
+        "precision": 0.9733777038269551,
+        "recall": 0.6747404844290658,
+        "unresolved_with_labeled_successor": 270,
+        "unresolved_proportion": 0.31141868512110726,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7635
+      },
+      "learned": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 825,
+        "correct_links": 808,
+        "incorrect_links": 17,
+        "incorrect_on_no_successor_tracklets": 5,
+        "precision": 0.9793939393939394,
+        "recall": 0.9319492502883506,
+        "unresolved_with_labeled_successor": 47,
+        "unresolved_proportion": 0.05420991926182238,
+        "candidate_links_kept": 858,
+        "candidate_recall": 0.9896193771626297,
+        "n_candidate_pairs": 7635
+      }
+    },
+    "S3_extra_noise_300m": {
+      "dataset": "test_noise300",
+      "manifest": {
+        "snapshot_id": "test_noise300",
+        "input_hash": "9cfd6fb6f5daf88f",
+        "model_version": "v1.0.0",
+        "config_hash": "711c7531b7228f07",
+        "decision_config": {
+          "candidates": {
+            "max_gap_min": 60.0,
+            "max_implied_speed_kmh": 1110.0,
+            "max_err_km_per_min": 11.657,
+            "err_offset_min": 2.0
+          },
+          "baseline": {
+            "variant": "per_minute",
+            "threshold": -3.0,
+            "margin": 0.1,
+            "skip_check": true,
+            "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+          },
+          "learned": {
+            "threshold": 0.02,
+            "margin": 0.0,
+            "skip_check": true,
+            "score": "classifier output in [0,1], higher is better, not calibrated"
+          },
+          "features": [
+            "gap_min",
+            "dist_km",
+            "implied_speed_kmh",
+            "fwd_err_km",
+            "back_err_km",
+            "speed_diff_kmh",
+            "heading_change_deg",
+            "bearing_align_deg",
+            "speed_ratio",
+            "alt_diff_ft",
+            "callsign_match",
+            "cat_match",
+            "ref_match"
+          ]
+        },
+        "generated_at": "2026-11-03T16:51:21.061932Z",
+        "n_observations_in": 44759,
+        "n_observations_unique": 44759,
+        "n_duplicates_removed": 0,
+        "n_tracklets": 1057,
+        "tracklet_context_unmatched": 0,
+        "id_reports_unmatched": 0,
+        "n_tracklet_context": 982,
+        "n_id_reports": 18713,
+        "n_scenarios": 20,
+        "n_candidate_pairs": 7628
+      },
+      "baseline": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 596,
+        "correct_links": 580,
+        "incorrect_links": 16,
+        "incorrect_on_no_successor_tracklets": 4,
+        "precision": 0.9731543624161074,
+        "recall": 0.6689734717416378,
+        "unresolved_with_labeled_successor": 275,
+        "unresolved_proportion": 0.31718569780853517,
+        "candidate_links_kept": 857,
+        "candidate_recall": 0.9884659746251442,
+        "n_candidate_pairs": 7628
+      },
+      "learned": {
+        "tracklets": 1057,
+        "labeled_links": 867,
+        "accepted_links": 834,
+        "correct_links": 823,
+        "incorrect_links": 11,
+        "incorrect_on_no_successor_tracklets": 3,
+        "precision": 0.986810551558753,
+        "recall": 0.9492502883506344,
+        "unresolved_with_labeled_successor": 36,
+        "unresolved_proportion": 0.04152249134948097,
+        "candidate_links_kept": 857,
+        "candidate_recall": 0.9884659746251442,
+        "n_candidate_pairs": 7628
+      }
+    }
+  },
+  "validation_threshold_comparison": {
+    "baseline": {
+      "permissive": {
+        "threshold": -12.0,
+        "margin": 0.1,
+        "precision": 0.9516310461192351,
+        "recall": 0.9019189765458422,
+        "incorrect_links": 43,
+        "unresolved_proportion": 0.05543710021321962,
+        "accepted_links": 889
+      },
+      "chosen": {
+        "threshold": -3.0,
+        "margin": 0.1,
+        "precision": 0.987987987987988,
+        "recall": 0.7014925373134329,
+        "incorrect_links": 8,
+        "unresolved_proportion": 0.2899786780383795,
+        "accepted_links": 666
+      },
+      "conservative": {
+        "threshold": -1.5,
+        "margin": 0.1,
+        "precision": 0.9949324324324325,
+        "recall": 0.6279317697228145,
+        "incorrect_links": 3,
+        "unresolved_proportion": 0.36886993603411516,
+        "accepted_links": 592
+      }
+    },
+    "learned": {
+      "permissive": {
+        "threshold": 0.02,
+        "margin": 0.0,
+        "precision": 0.9989071038251366,
+        "recall": 0.9744136460554371,
+        "incorrect_links": 1,
+        "unresolved_proportion": 0.024520255863539446,
+        "accepted_links": 915
+      },
+      "chosen": {
+        "threshold": 0.02,
+        "margin": 0.0,
+        "precision": 0.9989071038251366,
+        "recall": 0.9744136460554371,
+        "incorrect_links": 1,
+        "unresolved_proportion": 0.024520255863539446,
+        "accepted_links": 915
+      },
+      "conservative": {
+        "threshold": 0.1,
+        "margin": 0.0,
+        "precision": 0.9988636363636364,
+        "recall": 0.9371002132196162,
+        "incorrect_links": 1,
+        "unresolved_proportion": 0.06183368869936034,
+        "accepted_links": 880
+      }
+    }
+  }
+}

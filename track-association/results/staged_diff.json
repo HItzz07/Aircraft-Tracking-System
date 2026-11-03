@@ -1,0 +1,537 @@
+{
+  "stage_1": {
+    "snapshot_id": "stage_1",
+    "input_hash": "c3c18255fe359930",
+    "model_version": "v1.0.0",
+    "config_hash": "711c7531b7228f07",
+    "decision_config": {
+      "candidates": {
+        "max_gap_min": 60.0,
+        "max_implied_speed_kmh": 1110.0,
+        "max_err_km_per_min": 11.657,
+        "err_offset_min": 2.0
+      },
+      "baseline": {
+        "variant": "per_minute",
+        "threshold": -3.0,
+        "margin": 0.1,
+        "skip_check": true,
+        "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+      },
+      "learned": {
+        "threshold": 0.02,
+        "margin": 0.0,
+        "skip_check": true,
+        "score": "classifier output in [0,1], higher is better, not calibrated"
+      },
+      "features": [
+        "gap_min",
+        "dist_km",
+        "implied_speed_kmh",
+        "fwd_err_km",
+        "back_err_km",
+        "speed_diff_kmh",
+        "heading_change_deg",
+        "bearing_align_deg",
+        "speed_ratio",
+        "alt_diff_ft",
+        "callsign_match",
+        "cat_match",
+        "ref_match"
+      ]
+    },
+    "generated_at": "2026-11-03T16:52:04.655985Z",
+    "n_observations_in": 2662,
+    "n_observations_unique": 2615,
+    "n_duplicates_removed": 47,
+    "n_tracklets": 61,
+    "tracklet_context_unmatched": 0,
+    "id_reports_unmatched": 0,
+    "n_tracklet_context": 50,
+    "n_id_reports": 1219,
+    "n_scenarios": 1,
+    "n_candidate_pairs": 501,
+    "input_folder": "data/staged/snapshot_1",
+    "received_cutoff": "2026-07-01T11:30:00Z",
+    "metrics": {
+      "baseline": {
+        "tracklets": 61,
+        "labeled_links": 50,
+        "accepted_links": 28,
+        "correct_links": 28,
+        "incorrect_links": 0,
+        "incorrect_on_no_successor_tracklets": 0,
+        "precision": 1.0,
+        "recall": 0.56,
+        "unresolved_with_labeled_successor": 22,
+        "unresolved_proportion": 0.44,
+        "candidate_links_kept": 49,
+        "candidate_recall": 0.98,
+        "n_candidate_pairs": 501
+      },
+      "learned": {
+        "tracklets": 61,
+        "labeled_links": 50,
+        "accepted_links": 48,
+        "correct_links": 48,
+        "incorrect_links": 0,
+        "incorrect_on_no_successor_tracklets": 0,
+        "precision": 1.0,
+        "recall": 0.96,
+        "unresolved_with_labeled_successor": 2,
+        "unresolved_proportion": 0.04,
+        "candidate_links_kept": 49,
+        "candidate_recall": 0.98,
+        "n_candidate_pairs": 501
+      }
+    }
+  },
+  "stage_2": {
+    "snapshot_id": "stage_2",
+    "input_hash": "0a13e4d0388fd44c",
+    "model_version": "v1.0.0",
+    "config_hash": "711c7531b7228f07",
+    "decision_config": {
+      "candidates": {
+        "max_gap_min": 60.0,
+        "max_implied_speed_kmh": 1110.0,
+        "max_err_km_per_min": 11.657,
+        "err_offset_min": 2.0
+      },
+      "baseline": {
+        "variant": "per_minute",
+        "threshold": -3.0,
+        "margin": 0.1,
+        "skip_check": true,
+        "score": "-mean(fwd_err_km, back_err_km)/(2+gap_min), km per gap-minute; higher is better; not a probability"
+      },
+      "learned": {
+        "threshold": 0.02,
+        "margin": 0.0,
+        "skip_check": true,
+        "score": "classifier output in [0,1], higher is better, not calibrated"
+      },
+      "features": [
+        "gap_min",
+        "dist_km",
+        "implied_speed_kmh",
+        "fwd_err_km",
+        "back_err_km",
+        "speed_diff_kmh",
+        "heading_change_deg",
+        "bearing_align_deg",
+        "speed_ratio",
+        "alt_diff_ft",
+        "callsign_match",
+        "cat_match",
+        "ref_match"
+      ]
+    },
+    "generated_at": "2026-11-03T16:52:04.900286Z",
+    "n_observations_in": 2794,
+    "n_observations_unique": 2759,
+    "n_duplicates_removed": 35,
+    "n_tracklets": 64,
+    "tracklet_context_unmatched": 0,
+    "id_reports_unmatched": 0,
+    "n_tracklet_context": 53,
+    "n_id_reports": 1317,
+    "n_scenarios": 1,
+    "n_candidate_pairs": 551,
+    "input_folder": "data/staged/snapshot_2",
+    "received_cutoff": "2026-07-01T13:30:00Z",
+    "metrics": {
+      "baseline": {
+        "tracklets": 64,
+        "labeled_links": 53,
+        "accepted_links": 31,
+        "correct_links": 31,
+        "incorrect_links": 0,
+        "incorrect_on_no_successor_tracklets": 0,
+        "precision": 1.0,
+        "recall": 0.5849056603773585,
+        "unresolved_with_labeled_successor": 22,
+        "unresolved_proportion": 0.41509433962264153,
+        "candidate_links_kept": 52,
+        "candidate_recall": 0.9811320754716981,
+        "n_candidate_pairs": 551
+      },
+      "learned": {
+        "tracklets": 64,
+        "labeled_links": 53,
+        "accepted_links": 50,
+        "correct_links": 50,
+        "incorrect_links": 0,
+        "incorrect_on_no_successor_tracklets": 0,
+        "precision": 1.0,
+        "recall": 0.9433962264150944,
+        "unresolved_with_labeled_successor": 3,
+        "unresolved_proportion": 0.05660377358490566,
+        "candidate_links_kept": 52,
+        "candidate_recall": 0.9811320754716981,
+        "n_candidate_pairs": 551
+      }
+    }
+  },
+  "stage_1_accepted": {
+    "baseline": {
+      "trk-08ecc97d48": "trk-2b76eb2597",
+      "trk-1a55435ac6": "trk-85c0e00c2f",
+      "trk-1d93c72e5f": "trk-b718960fdd",
+      "trk-24faa174cf": "trk-2d689d78f4",
+      "trk-2710e6621f": "trk-2e7200f8ee",
+      "trk-2d689d78f4": "trk-90e6ffba3e",
+      "trk-316830ecae": "trk-345bfe970e",
+      "trk-5160877177": "trk-87fc33a567",
+      "trk-5488a47fa2": "trk-8bfbc50253",
+      "trk-5c53856c68": "trk-5160877177",
+      "trk-6b3771dd35": "trk-c3f35ce23c",
+      "trk-7b3d991aa6": "trk-2b25adce85",
+      "trk-7e709e339b": "trk-31a28aed0b",
+      "trk-90e6ffba3e": "trk-316830ecae",
+      "trk-9d126e2b54": "trk-7b3d991aa6",
+      "trk-a1735e6f61": "trk-1cb2b846eb",
+      "trk-aab05f6f4f": "trk-6b3771dd35",
+      "trk-c23601a25e": "trk-629101610c",
+      "trk-c3f35ce23c": "trk-8a21a02f73",
+      "trk-c65a9815e1": "trk-e7fa83b75a",
+      "trk-c7f10f777f": "trk-046f620f3a",
+      "trk-cb22a36bef": "trk-e034f9e309",
+      "trk-d206129437": "trk-c23601a25e",
+      "trk-d84eac5f90": "trk-d206129437",
+      "trk-e034f9e309": "trk-7e709e339b",
+      "trk-e6de689f45": "trk-63fc7b4c09",
+      "trk-e7fa83b75a": "trk-1a55435ac6",
+      "trk-e807b6432b": "trk-08ecc97d48"
+    },
+    "learned": {
+      "trk-08ecc97d48": "trk-2b76eb2597",
+      "trk-1a55435ac6": "trk-85c0e00c2f",
+      "trk-1cb2b846eb": "trk-e6de689f45",
+      "trk-1d93c72e5f": "trk-b718960fdd",
+      "trk-24faa174cf": "trk-2d689d78f4",
+      "trk-2710e6621f": "trk-2e7200f8ee",
+      "trk-2acf0966a9": "trk-9bc6835496",
+      "trk-2b25adce85": "trk-336304552e",
+      "trk-2b76eb2597": "trk-b5200ad862",
+      "trk-2d689d78f4": "trk-90e6ffba3e",
+      "trk-2e7200f8ee": "trk-c7f10f777f",
+      "trk-316830ecae": "trk-345bfe970e",
+      "trk-31a28aed0b": "trk-a1735e6f61",
+      "trk-345bfe970e": "trk-59253a6334",
+      "trk-3c3ceb4772": "trk-d84eac5f90",
+      "trk-4d096116ff": "trk-ecebf5ebdd",
+      "trk-4e94fbf3f4": "trk-2acf0966a9",
+      "trk-5160877177": "trk-87fc33a567",
+      "trk-5488a47fa2": "trk-8bfbc50253",
+      "trk-59253a6334": "trk-dba94ab899",
+      "trk-5c53856c68": "trk-5160877177",
+      "trk-63fc7b4c09": "trk-83cf635828",
+      "trk-6a7bebd8c8": "trk-2710e6621f",
+      "trk-6b3771dd35": "trk-c3f35ce23c",
+      "trk-7b3d991aa6": "trk-2b25adce85",
+      "trk-7e709e339b": "trk-31a28aed0b",
+      "trk-85c0e00c2f": "trk-76127a643c",
+      "trk-88b9a54532": "trk-3c3ceb4772",
+      "trk-8eb8d946dc": "trk-6a7bebd8c8",
+      "trk-90e6ffba3e": "trk-316830ecae",
+      "trk-9bc6835496": "trk-5c5e8b5813",
+      "trk-9d126e2b54": "trk-7b3d991aa6",
+      "trk-9d83743c90": "trk-5c53856c68",
+      "trk-a1735e6f61": "trk-1cb2b846eb",
+      "trk-aab05f6f4f": "trk-6b3771dd35",
+      "trk-c23601a25e": "trk-629101610c",
+      "trk-c3f35ce23c": "trk-8a21a02f73",
+      "trk-c65a9815e1": "trk-e7fa83b75a",
+      "trk-c7f10f777f": "trk-046f620f3a",
+      "trk-cb22a36bef": "trk-e034f9e309",
+      "trk-d206129437": "trk-c23601a25e",
+      "trk-d84eac5f90": "trk-d206129437",
+      "trk-e034f9e309": "trk-7e709e339b",
+      "trk-e6de689f45": "trk-63fc7b4c09",
+      "trk-e7fa83b75a": "trk-1a55435ac6",
+      "trk-e800307068": "trk-24faa174cf",
+      "trk-e807b6432b": "trk-08ecc97d48",
+      "trk-ecebf5ebdd": "trk-9d83743c90"
+    }
+  },
+  "stage_1_unresolved": {
+    "baseline": [
+      "trk-046f620f3a",
+      "trk-1cb2b846eb",
+      "trk-2acf0966a9",
+      "trk-2b25adce85",
+      "trk-2b76eb2597",
+      "trk-2e7200f8ee",
+      "trk-31a28aed0b",
+      "trk-336304552e",
+      "trk-345bfe970e",
+      "trk-3c3ceb4772",
+      "trk-4d096116ff",
+      "trk-4e94fbf3f4",
+      "trk-59253a6334",
+      "trk-5c5e8b5813",
+      "trk-5cf40298ea",
+      "trk-629101610c",
+      "trk-63fc7b4c09",
+      "trk-6a7bebd8c8",
+      "trk-76127a643c",
+      "trk-83cf635828",
+      "trk-85c0e00c2f",
+      "trk-87fc33a567",
+      "trk-88b9a54532",
+      "trk-8a21a02f73",
+      "trk-8bfbc50253",
+      "trk-8eb8d946dc",
+      "trk-9bc6835496",
+      "trk-9d83743c90",
+      "trk-b5200ad862",
+      "trk-b718960fdd",
+      "trk-dba94ab899",
+      "trk-e800307068",
+      "trk-ecebf5ebdd"
+    ],
+    "learned": [
+      "trk-046f620f3a",
+      "trk-336304552e",
+      "trk-5c5e8b5813",
+      "trk-5cf40298ea",
+      "trk-629101610c",
+      "trk-76127a643c",
+      "trk-83cf635828",
+      "trk-87fc33a567",
+      "trk-8a21a02f73",
+      "trk-8bfbc50253",
+      "trk-b5200ad862",
+      "trk-b718960fdd",
+      "trk-dba94ab899"
+    ]
+  },
+  "changes": {
+    "baseline": [
+      {
+        "tracklet": "trk-018b767f69",
+        "change": "new tracklet in stage 2",
+        "stage_2": {
+          "successor": null,
+          "predecessor": "trk-8a21a02f73"
+        },
+        "n_points": 86,
+        "reason_stage_2": "withheld: best remaining candidate trk-87fc33a567 scores -9.337, below threshold -3.0 (gap 54.0 min, mean projection error 522.91 km, heading change 90 deg)",
+        "explanation": "fragment received after the stage-1 cutoff (delayed tracklet)"
+      },
+      {
+        "tracklet": "trk-0b57de4011",
+        "change": "new tracklet in stage 2",
+        "stage_2": {
+          "successor": "trk-6a7bebd8c8",
+          "predecessor": null
+        },
+        "n_points": 25,
+        "reason_stage_2": "accepted trk-6a7bebd8c8: score -0.040 >= -3.0, gap 6.4 min, mean projection error 0.34 km, heading change 0 deg; runner-up trk-2acf0966a9 (-1.838)",
+        "explanation": "fragment received after the stage-1 cutoff (delayed tracklet)"
+      },
+      {
+        "tracklet": "trk-4daa5b59ad",
+        "change": "new tracklet in stage 2",
+        "stage_2": {
+          "successor": "trk-2acf0966a9",
+          "predecessor": null
+        },
+        "n_points": 9,
+        "reason_stage_2": "accepted trk-2acf0966a9: score -0.130 >= -3.0, gap 7.0 min, mean projection error 1.17 km, heading change 0 deg; runner-up trk-2710e6621f (-8.398)",
+        "explanation": "fragment received after the stage-1 cutoff (delayed tracklet)"
+      },
+      {
+        "tracklet": "trk-8a21a02f73",
+        "change": "new link",
+        "stage_1": {
+          "status": "unresolved",
+          "successor": null,
+          "reason": "withheld: best remaining candidate trk-9d83743c90 scores -8.490, below threshold -3.0 (gap 27.7 min, mean projection error 252.31 km, heading change 39 deg)",
+          "measurements": null
+        },
+        "stage_2": {
+          "status": "accepted",
+          "successor": "trk-018b767f69",
+          "reason": "accepted trk-018b767f69: score -0.158 >= -3.0, gap 25.0 min, mean projection error 4.26 km, heading change 0 deg; runner-up trk-9d83743c90 (-8.490)",
+          "measurements": {
+            "gap_min": 25.031,
+            "dist_km": 336.927,
+            "fwd_err_km": 3.802,
+            "back_err_km": 4.718,
+            "heading_change_deg": 0.133,
+            "alt_diff_ft": 4450.0,
+            "callsign_match": 0.0,
+            "score": -0.1576
+          }
+        },
+        "explanation": "trk-018b767f69 was not yet received at the stage-1 cutoff; it is a delayed fragment."
+      },
+      {
+        "tracklet": "trk-aab05f6f4f",
+        "change": "unchanged decision, tracklet extended by delayed reports",
+        "stage_1": {
+          "status": "accepted",
+          "successor": "trk-6b3771dd35",
+          "reason": "accepted trk-6b3771dd35: score -0.009 >= -3.0, gap 11.6 min, mean projection error 0.12 km, heading change 0 deg; runner-up trk-ecebf5ebdd (-6.541)",
+          "measurements": {
+            "gap_min": 11.631,
+            "dist_km": 156.531,
+            "fwd_err_km": 0.086,
+            "back_err_km": 0.159,
+            "heading_change_deg": 0.051,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": -0.009
+          }
+        },
+        "stage_2": {
+          "status": "accepted",
+          "successor": "trk-6b3771dd35",
+          "reason": "accepted trk-6b3771dd35: score -0.009 >= -3.0, gap 6.8 min, mean projection error 0.08 km, heading change 0 deg; runner-up trk-ecebf5ebdd (-7.048)",
+          "measurements": {
+            "gap_min": 6.784,
+            "dist_km": 91.311,
+            "fwd_err_km": 0.067,
+            "back_err_km": 0.1,
+            "heading_change_deg": 0.019,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": -0.0095
+          }
+        },
+        "explanation": "delayed reports extended trk-aab05f6f4f from 34 to 58 points; end time 2026-07-01T08:21:52.616000Z -> 2026-07-01T08:26:43.427000Z."
+      }
+    ],
+    "learned": [
+      {
+        "tracklet": "trk-0b57de4011",
+        "change": "new tracklet in stage 2",
+        "stage_2": {
+          "successor": "trk-6a7bebd8c8",
+          "predecessor": "trk-8eb8d946dc"
+        },
+        "n_points": 25,
+        "reason_stage_2": "accepted trk-6a7bebd8c8: score 0.992 >= 0.02, gap 6.4 min, mean projection error 0.34 km, heading change 0 deg; runner-up trk-2acf0966a9 (0.025)",
+        "explanation": "fragment received after the stage-1 cutoff (delayed tracklet)"
+      },
+      {
+        "tracklet": "trk-4daa5b59ad",
+        "change": "new tracklet in stage 2",
+        "stage_2": {
+          "successor": "trk-2acf0966a9",
+          "predecessor": "trk-4e94fbf3f4"
+        },
+        "n_points": 9,
+        "reason_stage_2": "accepted trk-2acf0966a9: score 0.965 >= 0.02, gap 7.0 min, mean projection error 1.17 km, heading change 0 deg; runner-up trk-08ecc97d48 (0.028)",
+        "explanation": "fragment received after the stage-1 cutoff (delayed tracklet)"
+      },
+      {
+        "tracklet": "trk-4e94fbf3f4",
+        "change": "replaced",
+        "stage_1": {
+          "status": "accepted",
+          "successor": "trk-2acf0966a9",
+          "reason": "accepted trk-2acf0966a9: score 0.401 >= 0.02, gap 20.1 min, mean projection error 202.90 km, heading change 87 deg; runner-up trk-6a7bebd8c8 (0.401)",
+          "measurements": {
+            "gap_min": 20.1,
+            "dist_km": 217.09,
+            "fwd_err_km": 251.037,
+            "back_err_km": 154.768,
+            "heading_change_deg": 86.704,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": 0.4008
+          }
+        },
+        "stage_2": {
+          "status": "accepted",
+          "successor": "trk-4daa5b59ad",
+          "reason": "accepted trk-4daa5b59ad: score 0.552 >= 0.02, gap 8.8 min, mean projection error 88.01 km, heading change 86 deg; runner-up trk-cb22a36bef (0.031)",
+          "measurements": {
+            "gap_min": 8.767,
+            "dist_km": 109.632,
+            "fwd_err_km": 23.806,
+            "back_err_km": 152.204,
+            "heading_change_deg": 85.963,
+            "alt_diff_ft": null,
+            "callsign_match": null,
+            "score": 0.5522
+          }
+        },
+        "explanation": "trk-4daa5b59ad arrived late and sits inside the trk-4e94fbf3f4->trk-2acf0966a9 gap; the chain is now trk-4e94fbf3f4->trk-4daa5b59ad->trk-2acf0966a9. This is the same inferred aircraft with a newly available intermediate fragment, not a change of identity."
+      },
+      {
+        "tracklet": "trk-8eb8d946dc",
+        "change": "replaced",
+        "stage_1": {
+          "status": "accepted",
+          "successor": "trk-6a7bebd8c8",
+          "reason": "accepted trk-6a7bebd8c8: score 0.323 >= 0.02, gap 17.5 min, mean projection error 174.02 km, heading change 86 deg; runner-up trk-4d096116ff (0.003)",
+          "measurements": {
+            "gap_min": 17.499,
+            "dist_km": 224.688,
+            "fwd_err_km": 288.304,
+            "back_err_km": 59.733,
+            "heading_change_deg": 85.762,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": 0.3231
+          }
+        },
+        "stage_2": {
+          "status": "accepted",
+          "successor": "trk-0b57de4011",
+          "reason": "accepted trk-0b57de4011: score 0.965 >= 0.02, gap 4.3 min, mean projection error 42.62 km, heading change 86 deg; runner-up trk-4daa5b59ad (0.875)",
+          "measurements": {
+            "gap_min": 4.267,
+            "dist_km": 52.096,
+            "fwd_err_km": 25.726,
+            "back_err_km": 59.512,
+            "heading_change_deg": 85.94,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": 0.9648
+          }
+        },
+        "explanation": "trk-0b57de4011 arrived late and sits inside the trk-8eb8d946dc->trk-6a7bebd8c8 gap; the chain is now trk-8eb8d946dc->trk-0b57de4011->trk-6a7bebd8c8. This is the same inferred aircraft with a newly available intermediate fragment, not a change of identity."
+      },
+      {
+        "tracklet": "trk-aab05f6f4f",
+        "change": "unchanged decision, tracklet extended by delayed reports",
+        "stage_1": {
+          "status": "accepted",
+          "successor": "trk-6b3771dd35",
+          "reason": "accepted trk-6b3771dd35: score 0.618 >= 0.02, gap 11.6 min, mean projection error 0.12 km, heading change 0 deg; runner-up trk-08ecc97d48 (0.002)",
+          "measurements": {
+            "gap_min": 11.631,
+            "dist_km": 156.531,
+            "fwd_err_km": 0.086,
+            "back_err_km": 0.159,
+            "heading_change_deg": 0.051,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": 0.6176
+          }
+        },
+        "stage_2": {
+          "status": "accepted",
+          "successor": "trk-6b3771dd35",
+          "reason": "accepted trk-6b3771dd35: score 0.988 >= 0.02, gap 6.8 min, mean projection error 0.08 km, heading change 0 deg; runner-up trk-9d126e2b54 (0.007)",
+          "measurements": {
+            "gap_min": 6.784,
+            "dist_km": 91.311,
+            "fwd_err_km": 0.067,
+            "back_err_km": 0.1,
+            "heading_change_deg": 0.019,
+            "alt_diff_ft": 0.0,
+            "callsign_match": null,
+            "score": 0.9879
+          }
+        },
+        "explanation": "delayed reports extended trk-aab05f6f4f from 34 to 58 points; end time 2026-07-01T08:21:52.616000Z -> 2026-07-01T08:26:43.427000Z."
+      }
+    ]
+  }
+}

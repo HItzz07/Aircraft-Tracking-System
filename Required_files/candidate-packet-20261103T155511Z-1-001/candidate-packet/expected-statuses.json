@@ -1,0 +1,997 @@
+[
+  {
+    "step_id": "step-001",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-002",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-003",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-004",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-005",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-006",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-007",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-008",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-009",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-010",
+    "expected_status": 201,
+    "reason": "buffered report delivered before identity data"
+  },
+  {
+    "step_id": "step-011",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-012",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-013",
+    "expected_status": 200,
+    "reason": "unresolved report remains retrievable"
+  },
+  {
+    "step_id": "step-014",
+    "expected_status": 201,
+    "reason": "identity arrives late or out of order"
+  },
+  {
+    "step_id": "step-015",
+    "expected_status": 201,
+    "reason": "identity arrives late or out of order"
+  },
+  {
+    "step_id": "step-016",
+    "expected_status": 201,
+    "reason": "identity arrives late or out of order"
+  },
+  {
+    "step_id": "step-017",
+    "expected_status": 201,
+    "reason": "identity arrives late or out of order"
+  },
+  {
+    "step_id": "step-018",
+    "expected_status": 201,
+    "reason": "identity arrives late or out of order"
+  },
+  {
+    "step_id": "step-019",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-020",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-021",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-022",
+    "expected_status": 200,
+    "reason": "identical report retry"
+  },
+  {
+    "step_id": "step-023",
+    "expected_status": 200,
+    "reason": "retry with recursively reordered object keys"
+  },
+  {
+    "step_id": "step-024",
+    "expected_status": 200,
+    "reason": "identical mapping retry despite its own interval"
+  },
+  {
+    "step_id": "step-025",
+    "expected_status": 409,
+    "reason": "same report ID with changed nested metadata"
+  },
+  {
+    "step_id": "step-026",
+    "expected_status": 409,
+    "reason": "absent metadata differs from empty metadata"
+  },
+  {
+    "step_id": "step-027",
+    "expected_status": 409,
+    "reason": "same mapping ID with changed content"
+  },
+  {
+    "step_id": "step-028",
+    "expected_status": 409,
+    "reason": "overlapping mapping rejected"
+  },
+  {
+    "step_id": "step-029",
+    "expected_status": 409,
+    "reason": "overlapping mapping rejected"
+  },
+  {
+    "step_id": "step-030",
+    "expected_status": 409,
+    "reason": "overlapping mapping rejected"
+  },
+  {
+    "step_id": "step-031",
+    "expected_status": 201,
+    "reason": "adjacent mapping accepted"
+  },
+  {
+    "step_id": "step-032",
+    "expected_status": 201,
+    "reason": "schema-valid report must be retained regardless of plausibility"
+  },
+  {
+    "step_id": "step-033",
+    "expected_status": 201,
+    "reason": "schema-valid report must be retained regardless of plausibility"
+  },
+  {
+    "step_id": "step-034",
+    "expected_status": 201,
+    "reason": "schema-valid report must be retained regardless of plausibility"
+  },
+  {
+    "step_id": "step-035",
+    "expected_status": 201,
+    "reason": "schema-valid report must be retained regardless of plausibility"
+  },
+  {
+    "step_id": "step-036",
+    "expected_status": 400,
+    "reason": "latitude outside range"
+  },
+  {
+    "step_id": "step-037",
+    "expected_status": 400,
+    "reason": "longitude outside range"
+  },
+  {
+    "step_id": "step-038",
+    "expected_status": 400,
+    "reason": "coordinate string"
+  },
+  {
+    "step_id": "step-039",
+    "expected_status": 400,
+    "reason": "boolean coordinate"
+  },
+  {
+    "step_id": "step-040",
+    "expected_status": 400,
+    "reason": "empty observation ID"
+  },
+  {
+    "step_id": "step-041",
+    "expected_status": 400,
+    "reason": "empty identifier"
+  },
+  {
+    "step_id": "step-042",
+    "expected_status": 400,
+    "reason": "numeric identifier"
+  },
+  {
+    "step_id": "step-043",
+    "expected_status": 400,
+    "reason": "invalid calendar date"
+  },
+  {
+    "step_id": "step-044",
+    "expected_status": 400,
+    "reason": "missing timezone"
+  },
+  {
+    "step_id": "step-045",
+    "expected_status": 400,
+    "reason": "non-UTC offset"
+  },
+  {
+    "step_id": "step-046",
+    "expected_status": 400,
+    "reason": "metadata must be object"
+  },
+  {
+    "step_id": "step-047",
+    "expected_status": 400,
+    "reason": "null metadata"
+  },
+  {
+    "step_id": "step-048",
+    "expected_status": 400,
+    "reason": "missing required field"
+  },
+  {
+    "step_id": "step-049",
+    "expected_status": 400,
+    "reason": "malformed JSON"
+  },
+  {
+    "step_id": "step-050",
+    "expected_status": 400,
+    "reason": "array instead of object"
+  },
+  {
+    "step_id": "step-051",
+    "expected_status": 400,
+    "reason": "zero-length interval"
+  },
+  {
+    "step_id": "step-052",
+    "expected_status": 400,
+    "reason": "reversed interval"
+  },
+  {
+    "step_id": "step-053",
+    "expected_status": 400,
+    "reason": "empty aircraft ID"
+  },
+  {
+    "step_id": "step-054",
+    "expected_status": 400,
+    "reason": "missing valid_to"
+  },
+  {
+    "step_id": "step-055",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-056",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-057",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-058",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-059",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-060",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-061",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-062",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-063",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-064",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-065",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-066",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-067",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-068",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-069",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-070",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-071",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-072",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-073",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-074",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-075",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-076",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-077",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-078",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-079",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-080",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-081",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-082",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-083",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-084",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-085",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-086",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-087",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-088",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-089",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-090",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-091",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-092",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-093",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-094",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-095",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-096",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-097",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-098",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-099",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-100",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-101",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-102",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-103",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-104",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-105",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-106",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-107",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-108",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-109",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-110",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-111",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-112",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-113",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-114",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-115",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-116",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-117",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-118",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-119",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-120",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-121",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-122",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-123",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-124",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-125",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-126",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-127",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-128",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-129",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-130",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-131",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-132",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-133",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-134",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-135",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-136",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-137",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-138",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-139",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-140",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-141",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-142",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-143",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-144",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-145",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-146",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-147",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-148",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-149",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-150",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-151",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-152",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-153",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-154",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-155",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-156",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-157",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-158",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-159",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-160",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-161",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-162",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-163",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-164",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-165",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-166",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-167",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-168",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-169",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-170",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-171",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-172",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-173",
+    "expected_status": 200,
+    "reason": "receiver retry after acknowledgement loss"
+  },
+  {
+    "step_id": "step-174",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-175",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-176",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-177",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-178",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-179",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-180",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-181",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-182",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-183",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-184",
+    "expected_status": 201,
+    "reason": "shuffled receiver backlog"
+  },
+  {
+    "step_id": "step-185",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-186",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-187",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-188",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-189",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-190",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-191",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-192",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-193",
+    "expected_status": 200,
+    "reason": "history checkpoint"
+  },
+  {
+    "step_id": "step-194",
+    "expected_status": 400,
+    "reason": "invalid query timestamp"
+  },
+  {
+    "step_id": "step-195",
+    "expected_status": 400,
+    "reason": "invalid reversed query interval"
+  },
+  {
+    "step_id": "step-196",
+    "expected_status": 400,
+    "reason": "invalid equal query interval"
+  },
+  {
+    "step_id": "step-197",
+    "expected_status": 404,
+    "reason": "missing report"
+  },
+  {
+    "step_id": "step-198",
+    "expected_status": 404,
+    "reason": "rejected report was not stored"
+  },
+  {
+    "step_id": "step-199",
+    "expected_status": 200,
+    "reason": "original survives conflicting retry"
+  }
+]

@@ -1,0 +1,34 @@
+# --- Python environment & caches ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# --- Generated data (88 MB; recreate exactly with `python -m scripts.generate_data`, seed 42) ---
+# The source notes are hand-written documentation, so they stay tracked.
+data/*
+!data/README_source_notes.md
+
+# --- Per-request API logs (written by every POST /tracklets/associate) ---
+results/api_runs/
+
+# Kept on purpose (required by the brief):
+#   artifacts/  -> fitted model, config, decision settings (service loads these after restart)
+#   results/    -> evaluation, stress tests, staged stage_1/stage_2 results, failure analysis
+
+# --- Local / editor / OS ---
+.env
+.env.*
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini

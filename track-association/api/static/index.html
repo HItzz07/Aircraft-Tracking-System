@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track Association</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--fg:#1c2330;--muted:#667085;--bd:#d8dce3;--acc:#2456c9;--ok:#1a7f45;--okbg:#dcf3e5;--warn:#9a5b00;--warnbg:#fdecc8;--err:#b42318;--errbg:#fde4e1;--diff:#fff3c4;--base:#d9480f;--learn:#1971c2;--grey:#8a919e}
+@media (prefers-color-scheme:dark){:root{--bg:#11151c;--card:#1a202b;--fg:#e4e8ef;--muted:#98a2b3;--bd:#2f3847;--acc:#7aa2ff;--ok:#5fd08d;--okbg:#17382a;--warn:#f0b85a;--warnbg:#3d2e10;--err:#ff8b80;--errbg:#40201d;--diff:#4a4217;--base:#ff9156;--learn:#6cb4ff;--grey:#7b8494}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 system-ui,Segoe UI,Roboto,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--bd)}
+h1{font-size:18px;margin:0}h2{font-size:15px;margin:0 0 8px}h3{font-size:13px;margin:12px 0 6px}
+main{padding:12px 16px;max-width:1400px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:12px;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+select,button{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:6px 10px;max-width:100%}
+button{cursor:pointer}button:hover:not(:disabled){border-color:var(--acc)}button:disabled{opacity:.5;cursor:not-allowed}
+button.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+button.small{font-size:12px;padding:3px 8px;color:var(--muted)}
+.seg button{border-radius:0;margin-left:-1px}.seg button:first-child{border-radius:6px 0 0 6px;margin:0}.seg button:last-child{border-radius:0 6px 6px 0}
+.seg button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-un{background:var(--warnbg);color:var(--warn)}.b-err{background:var(--errbg);color:var(--err)}.b-mut{background:var(--bd);color:var(--muted)}
+.muted{color:var(--muted)}.good{color:var(--ok);font-weight:700}.bad{color:var(--err);font-weight:700}
+.tw{overflow-x:auto;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:4px 8px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;white-space:nowrap;position:sticky;top:0;background:var(--card)}
+tbody tr[data-tid]{cursor:pointer}tbody tr[data-tid]:hover{background:var(--bg)}
+tr.sel td{outline:0;background:color-mix(in srgb,var(--acc) 15%,transparent)}
+tr.diff td{background:var(--diff)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.mono{font-family:ui-monospace,Consolas,monospace}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+svg{width:100%;height:auto;display:block;background:var(--bg);border:1px solid var(--bd);border-radius:6px}
+svg text{fill:var(--fg);font-size:11px}svg .ax{stroke:var(--bd)}svg .tk{fill:var(--muted);font-size:10px}
+g.trk{cursor:pointer}g.trk:hover polyline.line{stroke-width:3}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin-bottom:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:2px dashed;vertical-align:middle;margin-right:4px}
+.err{border-color:var(--err);background:var(--errbg);color:var(--err)}
+.err pre{white-space:pre-wrap;word-break:break-word;margin:4px 0 0;color:var(--fg)}
+pre.json{background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:8px;overflow:auto;max-height:260px;font-size:12px;margin:6px 0}
+details{margin:6px 0}summary{cursor:pointer;color:var(--acc)}
+dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:2px 12px;margin:0;font-size:12.5px}dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;word-break:break-all}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Track Association</h1>
+  <div id="health" class="badge b-mut">checking health…</div>
+</header>
+<main>
+  <div class="card">
+    <div class="row">
+      <label for="ds">Dataset</label>
+      <select id="ds" disabled><option>Loading…</option></select>
+      <button id="run" class="primary" disabled>Run association</button>
+      <button id="stages" disabled>Compare stages</button>
+      <button id="bad" class="small" title="POST an invalid payload to show the error state">Send invalid sample</button>
+      <span id="busy" class="muted"></span>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <span class="muted">Method</span>
+      <span class="seg" id="seg">
+        <button data-m="baseline">baseline</button><button data-m="learned" class="on">learned</button><button data-m="compare">compare</button>
+      </span>
+    </div>
+  </div>
+  <div id="error" hidden></div>
+  <div id="empty" class="card muted" hidden>Run an association to see results. No tracklets loaded yet.</div>
+  <div id="out" hidden>
+    <div class="two">
+      <div class="card"><h2>Manifest</h2><div id="manifest"></div></div>
+      <div class="card" id="metricsCard" hidden><h2>Metrics</h2><div id="metrics" class="tw"></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Lat/lon plot</h2><div id="legend" class="legend"></div><div id="plot"></div></div>
+      <div class="card"><h2>Selected tracklet</h2><div id="detail" class="muted">Click a tracklet in the plot or table.</div></div>
+    </div>
+    <div class="card"><h2>Results</h2><div id="results" class="tw"></div></div>
+    <div id="stageBox" class="card" hidden><h2>Stage 1 vs stage 2</h2><div id="stageOut"></div></div>
+  </div>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = v => v == null ? "—" : typeof v === "number" ? (Number.isInteger(v) ? String(v) : String(Math.round(v * 1000) / 1000)) : typeof v === "boolean" ? (v ? "yes" : "no") : typeof v === "object" ? JSON.stringify(v) : String(v);
+const fmtT = s => { const d = new Date(s); return isNaN(d) ? esc(s) : d.toISOString().slice(11, 19); };
+const hue = tid => { let h = 0; for (const c of String(tid)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return (h * 47) % 360; };
+const colour = tid => `hsl(${hue(tid)} 70% 48%)`;
+const S = { resp: null, stage: null, method: "learned", sel: null, busy: false, datasets: [] };
+
+class ApiError extends Error { constructor(code, message, details, status) { super(message); this.code = code; this.details = details; this.status = status; } }
+async function api(url, body) {
+  let r;
+  try { r = await fetch(url, body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }); }
+  catch (e) { throw new ApiError("network_error", String(e.message || e), null, 0); }
+  let j = null;
+  try { j = await r.json(); } catch (_) {}
+  if (!r.ok) {
+    const e = j && j.error;
+    throw new ApiError(e && e.code || "http_" + r.status, e && e.message || (j && j.detail && JSON.stringify(j.detail)) || r.statusText, e ? e.details : null, r.status);
+  }
+  return j;
+}
+function showError(e) {
+  const box = $("error");
+  box.hidden = false; box.className = "card err";
+  box.innerHTML = `<b>${esc(e.code || "error")}</b>${e.status ? " (HTTP " + esc(e.status) + ")" : ""}: ${esc(e.message)}` +
+    (e.details ? `<pre>${esc(JSON.stringify(e.details, null, 2))}</pre>` : "");
+}
+const clearError = () => { $("error").hidden = true; };
+function setBusy(b, text) {
+  S.busy = b;
+  for (const id of ["run", "stages", "bad", "ds"]) $(id).disabled = b || (id !== "bad" && !S.datasets.length);
+  $("busy").textContent = b ? text || "Running…" : "";
+}
+const methodsShown = () => S.method === "compare" ? ["baseline", "learned"] : [S.method];
+const mColour = m => m === "baseline" ? "var(--base)" : "var(--learn)";
+
+/* ---------- health & datasets ---------- */
+async function loadHealth() {
+  const el = $("health");
+  try {
+    const r = await fetch("/health"); const j = await r.json().catch(() => ({}));
+    if (r.ok && j.status === "ok") { el.className = "badge b-ok"; el.textContent = "ok · model " + (j.model_version || "?"); }
+    else if (r.status === 503) { el.className = "badge b-un"; el.textContent = "model not loaded"; }
+    else { el.className = "badge b-err"; el.textContent = "error: HTTP " + r.status; }
+  } catch (e) { el.className = "badge b-err"; el.textContent = "error: unreachable"; }
+}
+async function loadDatasets() {
+  const sel = $("ds");
+  try {
+    S.datasets = await api("/datasets");
+    sel.innerHTML = S.datasets.length
+      ? S.datasets.map(d => `<option value="${esc(d.name)}">${esc(d.label || d.name)} [${esc(d.kind)}]</option>`).join("")
+      : "<option>(no datasets)</option>";
+  } catch (e) { sel.innerHTML = "<option>Failed to load</option>"; showError(e); }
+  setBusy(false);
+}
+
+/* ---------- actions ---------- */
+async function guarded(text, fn) {
+  clearError(); setBusy(true, text);
+  try { await fn(); } catch (e) { showError(e); } finally { setBusy(false); }
+}
+const runDataset = () => guarded("Running…", async () => {
+  const payload = await api("/datasets/" + $("ds").value);
+  S.resp = await api("/tracklets/associate", payload);
+  S.stage = null; S.sel = null; render();
+});
+const compareStages = () => guarded("Running both stages…", async () => {
+  const p1 = await api("/datasets/staged/stage_1"), p2 = await api("/datasets/staged/stage_2");
+  const s1 = await api("/tracklets/associate", p1), s2 = await api("/tracklets/associate", p2);
+  S.stage = { s1, s2 }; S.resp = s2; S.sel = null; render();
+});
+const sendBad = () => guarded("Sending…", async () => {
+  S.resp = await api("/tracklets/associate", { snapshot_id: "bad", observations: [{ observation_id: "x" }] });
+  S.stage = null; render();
+});
+
+/* ---------- helpers on response ---------- */
+const results = (resp, m) => (resp && resp.methods && resp.methods[m]) || {};
+const accepted = r => r && r.status === "accepted" && r.successor ? r.successor : null;
+function linksOf(resp, m) {
+  const out = [], T = resp.tracklets;
+  for (const [a, r] of Object.entries(results(resp, m))) {
+    const b = accepted(r);
+    if (b && T[a] && T[b] && T[a].points.length && T[b].points.length) out.push([a, b]);
+  }
+  return out;
+}
+const badge = r => !r ? `<span class="badge b-mut">—</span>` : `<span class="badge ${r.status === "accepted" ? "b-ok" : "b-un"}">${esc(r.status)}</span>`;
+function mark(resp, tid, r) {
+  const L = resp.labels; if (!L || !(tid in L) || !r) return "";
+  const ok = (accepted(r) || null) === (L[tid] || null);
+  return ok ? ` <span class="good" title="matches label">✓</span>` : ` <span class="bad" title="differs from label">✗</span>`;
+}
+const top3 = r => r && r.ranked_candidates && r.ranked_candidates.length
+  ? r.ranked_candidates.slice(0, 3).map(c => `${esc(c.candidate)} <span class="muted">(${fmt(c.score)})</span>`).join("<br>") : "—";
+
+/* ---------- render ---------- */
+function render() {
+  const R = S.resp;
+  const n = R ? Object.keys(R.tracklets || {}).length : 0;
+  $("empty").hidden = n > 0; $("out").hidden = !R;
+  $("empty").textContent = R ? "The response contains no tracklets." : "Run an association to see results. No tracklets loaded yet.";
+  if (!R) return;
+  $("manifest").innerHTML = manifestHtml(R.manifest);
+  const mc = R.metrics; $("metricsCard").hidden = !mc;
+  if (mc) $("metrics").innerHTML = metricsHtml(mc);
+  renderPlot(); renderResults(); renderDetail(); renderStage();
+  document.querySelectorAll("#seg button").forEach(b => b.classList.toggle("on", b.dataset.m === S.method));
+}
+function manifestHtml(m) {
+  if (!m) return '<span class="muted">none</span>';
+  const rows = Object.entries(m).map(([k, v]) => `<dt>${esc(k)}</dt><dd class="mono">${esc(typeof v === "object" ? JSON.stringify(v) : v)}</dd>`).join("");
+  return `<dl class="kv">${rows}</dl>`;
+}
+function metricsHtml(mc) {
+  const keys = [...new Set([...Object.keys(mc.baseline || {}), ...Object.keys(mc.learned || {})])];
+  return `<table><thead><tr><th>metric</th><th>baseline</th><th>learned</th></tr></thead><tbody>` +
+    keys.map(k => `<tr><td>${esc(k)}</td><td class="num">${fmt((mc.baseline || {})[k])}</td><td class="num">${fmt((mc.learned || {})[k])}</td></tr>`).join("") + "</tbody></table>";
+}
+
+function renderPlot() {
+  const R = S.resp, T = R.tracklets, ids = Object.keys(T);
+  const pts = ids.flatMap(t => T[t].points);
+  const lg = [];
+  if (S.stage) {
+    const m = S.method === "compare" ? "learned" : S.method;
+    lg.push({ label: "stage 1 links (" + m + ")", color: "var(--grey)", links: linksOf(S.stage.s1, m).filter(l => T[l[0]] && T[l[1]]) });
+    lg.push({ label: "stage 2 links (" + m + ")", color: mColour(m), links: linksOf(R, m) });
+  } else lg.push(...methodsShown().map(m => ({ label: m + " accepted links", color: mColour(m), links: linksOf(R, m) })));
+  $("legend").innerHTML = lg.map(l => `<span><i style="border-color:${l.color}"></i>${esc(l.label)}</span>`).join("") +
+    `<span><i style="border-top-style:dotted;border-color:var(--fg)"></i>selected's candidates</span><span>✕ glitch</span>`;
+  if (!pts.length) { $("plot").innerHTML = '<div class="muted">No points to plot.</div>'; return; }
+  const W = 800, H = 520, P = 44;
+  const lats = pts.map(p => p.lat), lons = pts.map(p => p.lon);
+  const minLat = Math.min(...lats), maxLat = Math.max(...lats), minLon = Math.min(...lons), maxLon = Math.max(...lons);
+  const cosL = Math.cos(((minLat + maxLat) / 2) * Math.PI / 180);
+  const dLat = Math.max(maxLat - minLat, 1e-4), dLon = Math.max((maxLon - minLon) * cosL, 1e-4);
+  const k = Math.min((W - 2 * P) / dLon, (H - 2 * P) / dLat);
+  const ox = (W - dLon * k) / 2, oy = (H - dLat * k) / 2;
+  const X = lon => ox + (lon - minLon) * cosL * k, Y = lat => H - oy - (lat - minLat) * k;
+  const first = t => T[t].points[0], last = t => T[t].points[T[t].points.length - 1];
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Tracklet plot"><defs>` +
+    lg.map((l, i) => `<marker id="ah${i}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="${l.color}"/></marker>`).join("") + `</defs>`;
+  // axes + ticks
+  for (let i = 0; i <= 4; i++) {
+    const lon = minLon + (maxLon - minLon) * i / 4, lat = minLat + (maxLat - minLat) * i / 4;
+    s += `<line class="ax" x1="${X(lon)}" x2="${X(lon)}" y1="${P / 2}" y2="${H - P / 2}" stroke-dasharray="2 4"/>` +
+      `<text class="tk" x="${X(lon)}" y="${H - P / 2 + 12}" text-anchor="middle">${lon.toFixed(3)}</text>` +
+      `<line class="ax" y1="${Y(lat)}" y2="${Y(lat)}" x1="${P / 2}" x2="${W - P / 2}" stroke-dasharray="2 4"/>` +
+      `<text class="tk" x="${P / 2 - 3}" y="${Y(lat) + 3}" text-anchor="end">${lat.toFixed(3)}</text>`;
+  }
+  s += `<text class="tk" x="${W / 2}" y="${H - 4}" text-anchor="middle">lon</text><text class="tk" x="8" y="12">lat</text>`;
+  const line = (a, b, color, dash, w, op, mk) =>
+    `<line x1="${X(a.lon)}" y1="${Y(a.lat)}" x2="${X(b.lon)}" y2="${Y(b.lat)}" stroke="${color}" stroke-width="${w}" stroke-dasharray="${dash}" opacity="${op}"${mk ? ` marker-end="url(#ah${mk})"` : ""}/>`;
+  lg.forEach((l, i) => l.links.forEach(([a, b]) => { s += line(last(a), first(b), l.color, "6 4", 1.8, 0.95, i); }));
+  if (S.sel && T[S.sel] && T[S.sel].points.length) {
+    const cs = new Set();
+    methodsShown().forEach(m => ((results(R, m)[S.sel] || {}).ranked_candidates || []).slice(0, 3).forEach(c => cs.add(c.candidate)));
+    cs.forEach(c => { if (T[c] && T[c].points.length) s += line(last(S.sel), first(c), colour(S.sel), "1 4", 1.5, 0.6); });
+  }
+  for (const t of ids) {
+    const p = T[t].points; if (!p.length) continue;
+    const c = colour(t), sel = t === S.sel;
+    const a = p[p.length - 1], b = p.length > 1 ? p[p.length - 2] : null;
+    const ang = b ? Math.atan2(Y(a.lat) - Y(b.lat), X(a.lon) - X(b.lon)) * 180 / Math.PI : 0;
+    s += `<g class="trk" data-tid="${esc(t)}" opacity="${S.sel && !sel ? 0.7 : 1}"><title>${esc(t)} · ${esc(T[t].source)} · ${p.length} pts</title>` +
+      `<polyline class="line" fill="none" stroke="${c}" stroke-width="${sel ? 4 : 2}" stroke-linejoin="round" points="${p.map(q => X(q.lon).toFixed(1) + "," + Y(q.lat).toFixed(1)).join(" ")}"/>` +
+      `<polyline fill="none" stroke="transparent" stroke-width="12" points="${p.map(q => X(q.lon).toFixed(1) + "," + Y(q.lat).toFixed(1)).join(" ")}"/>` +
+      `<circle cx="${X(p[0].lon)}" cy="${Y(p[0].lat)}" r="${sel ? 4 : 3}" fill="${c}"/>` +
+      `<polygon points="-5,-4 6,0 -5,4" fill="${c}" transform="translate(${X(a.lon)} ${Y(a.lat)}) rotate(${ang})"/>` +
+      `<text x="${X(a.lon) + 8}" y="${Y(a.lat) - 6}" style="font-weight:${sel ? 700 : 400}">${esc(t)}</text>`;
+    for (const q of p) if (q.glitch) { const x = X(q.lon), y = Y(q.lat); s += `<path d="M${x - 3} ${y - 3}L${x + 3} ${y + 3}M${x + 3} ${y - 3}L${x - 3} ${y + 3}" stroke="var(--err)" stroke-width="1.5"/>`; }
+    s += `</g>`;
+  }
+  $("plot").innerHTML = s + "</svg>";
+}
+
+function renderResults() {
+  const R = S.resp, T = R.tracklets, ids = Object.keys(T), cmp = S.method === "compare", L = R.labels;
+  const times = t => `${fmtT(T[t].start_time)}–${fmtT(T[t].end_time)}`;
+  let h = `<table><thead><tr><th>tid</th><th>source</th><th>pts</th><th>time</th>`;
+  if (cmp) h += `<th>baseline</th><th>b. succ</th><th>learned</th><th>l. succ</th><th>top-3 (learned)</th><th>reason (learned)</th>`;
+  else h += `<th>status</th><th>successor</th><th>top-3 candidates</th><th>reason</th>`;
+  if (L) h += `<th>truth</th>`;
+  h += `</tr></thead><tbody>`;
+  for (const t of ids) {
+    const x = T[t], rb = results(R, "baseline")[t], rl = results(R, "learned")[t], r = results(R, S.method)[t];
+    const dis = cmp && ((accepted(rb) || null) !== (accepted(rl) || null) || (rb && rl && rb.status !== rl.status));
+    h += `<tr data-tid="${esc(t)}" class="${t === S.sel ? "sel" : ""} ${dis ? "diff" : ""}"><td class="mono">${esc(t)}</td><td>${esc(x.source)}</td><td class="num">${esc(x.n_points)}</td><td class="mono">${times(t)}</td>`;
+    if (cmp) h += `<td>${badge(rb)}</td><td class="mono">${esc(accepted(rb) || "—")}${mark(R, t, rb)}</td><td>${badge(rl)}</td><td class="mono">${esc(accepted(rl) || "—")}${mark(R, t, rl)}</td><td>${top3(rl)}</td><td>${esc(rl ? rl.reason : "—")}</td>`;
+    else h += `<td>${badge(r)}</td><td class="mono">${esc(accepted(r) || "—")}${mark(R, t, r)}</td><td>${top3(r)}</td><td>${esc(r ? r.reason : "—")}</td>`;
+    if (L) h += `<td class="mono">${esc(L[t] || "—")}</td>`;
+    h += `</tr>`;
+  }
+  $("results").innerHTML = h + "</tbody></table>";
+}
+
+function renderDetail() {
+  const R = S.resp, t = S.sel, x = t && R.tracklets[t];
+  if (!x) { $("detail").className = "muted"; $("detail").textContent = "Click a tracklet in the plot or table."; return; }
+  $("detail").className = "";
+  let h = `<div><b class="mono" style="color:${colour(t)}">${esc(t)}</b> <span class="muted">${esc(x.scenario_id)} · ${esc(x.source)} · ${esc(x.n_points)} points · ${fmtT(x.start_time)}–${fmtT(x.end_time)}</span></div>`;
+  const sm = Object.entries(x.summary || {});
+  h += `<h3>Summary</h3>` + (sm.length ? `<dl class="kv">${sm.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(fmt(v))}</dd>`).join("")}</dl>` : '<span class="muted">none</span>');
+  for (const m of methodsShown()) {
+    const r = results(R, m)[t];
+    h += `<h3>Candidates · ${esc(m)} ${badge(r)}</h3>`;
+    if (!r) { h += '<span class="muted">no result</span>'; continue; }
+    h += `<div class="muted">${esc(r.reason)} · successor ${esc(r.successor || "—")} · predecessor ${esc(r.predecessor || "—")} · score ${fmt(r.score)}</div>`;
+    const cs = r.ranked_candidates || [];
+    if (!cs.length) { h += '<div class="muted">No candidates.</div>'; continue; }
+    const keys = [...new Set(cs.flatMap(c => Object.keys(c.measurements || {})))];
+    h += `<div class="tw"><table><thead><tr><th>#</th><th>candidate</th><th>score</th>${keys.map(k => `<th>${esc(k)}</th>`).join("")}</tr></thead><tbody>` +
+      cs.map(c => `<tr data-tid="${esc(c.candidate)}"><td>${esc(c.rank)}</td><td class="mono">${esc(c.candidate)}</td><td class="num">${fmt(c.score)}</td>${keys.map(k => `<td class="num">${fmt((c.measurements || {})[k])}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+  }
+  const raw = x.raw || [];
+  h += `<h3>Raw reports</h3><details><summary>${raw.length} original record(s)</summary><pre class="json">${esc(JSON.stringify(raw, null, 2))}</pre></details>`;
+  $("detail").innerHTML = h;
+}
+
+function renderStage() {
+  $("stageBox").hidden = !S.stage;
+  if (!S.stage) return;
+  const { s1, s2 } = S.stage;
+  const ids = [...new Set([...Object.keys(s1.tracklets), ...Object.keys(s2.tracklets)])];
+  let h = `<div class="two"><div><h3>Stage 1 manifest</h3>${manifestHtml(s1.manifest)}</div><div><h3>Stage 2 manifest</h3>${manifestHtml(s2.manifest)}</div></div>`;
+  for (const m of ["baseline", "learned"]) {
+    h += `<h3>${esc(m)}</h3><div class="tw"><table><thead><tr><th>tracklet</th><th>stage 1 succ</th><th>stage 1 status</th><th>stage 2 succ</th><th>stage 2 status</th><th>change</th><th>stage 2 reason</th></tr></thead><tbody>`;
+    let same = 0;
+    for (const t of ids) {
+      const r1 = results(s1, m)[t], r2 = results(s2, m)[t], a = accepted(r1) || null, b = accepted(r2) || null;
+      const ext = (t in s1.tracklets) && s1.tracklets[t].n_points !== s2.tracklets[t].n_points;
+      const kind = !(t in s1.tracklets) ? "new tracklet" : a === b ? (ext ? "unchanged (tracklet extended)" : "unchanged") : !a ? "new link" : !b ? "withdrawn" : "replaced";
+      if (kind === "unchanged") { same++; continue; }
+      h += `<tr data-tid="${esc(t)}" class="diff"><td class="mono">${esc(t)}</td><td class="mono">${esc(a || "—")}</td><td>${badge(r1)}</td><td class="mono">${esc(b || "—")}</td><td>${badge(r2)}</td><td><b>${kind}</b></td><td>${esc(r2 ? r2.reason : "—")}</td></tr>`;
+    }
+    h += `</tbody></table></div><div class="muted">${same} tracklet(s) with an unchanged decision are hidden.</div>`;
+  }
+  $("stageOut").innerHTML = h;
+}
+
+/* ---------- events ---------- */
+function select(tid) {
+  if (!tid || !S.resp || !S.resp.tracklets[tid]) return;
+  S.sel = tid; renderPlot(); renderResults(); renderDetail();
+}
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-tid]"); if (el) select(el.dataset.tid);
+});
+$("seg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  S.method = b.dataset.m; if (S.resp) render(); else document.querySelectorAll("#seg button").forEach(x => x.classList.toggle("on", x === b));
+});
+$("run").onclick = runDataset; $("stages").onclick = compareStages; $("bad").onclick = sendBad;
+$("empty").hidden = false;
+loadHealth(); loadDatasets();
+</script>
+</body>
+</html>
